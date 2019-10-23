@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">SupplicationsFromQuran</string>
+    <string name="app_name">Мольбы из Корана</string>
+    <string name="database_name">SQF_ru</string>
     <string name="action_settings">Settings</string>
 </resources>
