@@ -4,7 +4,27 @@
     tools:context="jmapps.supplicationsfromquran.MainActivity">
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:icon="@drawable/ic_settings_white"
+        android:orderInCategory="1"
         android:title="@string/action_settings"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_about_us"
+        android:icon="@drawable/ic_about_us"
+        android:orderInCategory="2"
+        android:title="@string/action_about_us"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_rate"
+        android:orderInCategory="3"
+        android:title="@string/action_rate_app"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_share"
+        android:orderInCategory="4"
+        android:title="@string/action_share_link"
         app:showAsAction="never" />
 </menu>
