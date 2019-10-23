@@ -1,5 +1,36 @@
 <resources>
     <string name="app_name">Мольбы из Корана</string>
     <string name="database_name">SFQ_ru</string>
-    <string name="action_settings">Settings</string>
+
+    <string name="action_settings">Настройки</string>
+    <string name="action_about_us">О нас</string>
+    <string name="action_rate_app">Оценить</string>
+    <string name="action_share_link">Поделиться</string>
+
+    <string name="action_text_mode">Режим</string>
+    <string name="text_normal_mode">Белый</string>
+    <string name="text_sepia_mode">Сепия</string>
+    <string name="text_night_mode">Ночной</string>
+    <string name="action_font_mode">Шрифт</string>
+    <string name="text_font_one">Gilroy</string>
+    <string name="text_font_two">Serif</string>
+    <string name="text_font_three">Roboto</string>
+    <string name="action_text_size_ayahs">Размер текста аятов</string>
+    <string name="action_text_size_translations">Размер текста перевода</string>
+    <string name="action_showing_translations">Отображение аятов</string>
+
+    <string name="about_us_text">
+        <b>JMApps</b> - серия бесплатных и безрекламных андроид-приложений для мусульман.\n\n
+
+        Вы можете следить за обновлением старых и изданием новых приложений в наших соцсетях:\n\n
+
+        ВКонтакте: www.vk.com/JMApps\n
+        Telegram: t.me/JMApps\n
+        Facebook: www.facebook.com/JMAppsM\n
+        Instagram: www.instagram.com/dev_muslim\n\n
+
+        По всем вопросам, предложениям и скритикой можете писать нам на почту:
+        JMAppsMuslim@gmail.com или в Telegram: t.me/dev_muslim
+    </string>
+    <string name="action_ayah_translation">Перевод аята</string>
 </resources>
