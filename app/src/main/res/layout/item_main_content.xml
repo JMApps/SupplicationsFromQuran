@@ -16,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/quran_font"
-            android:padding="16dp" />
+            android:padding="16dp"
+            android:textIsSelectable="true" />
 
         <TextView
             android:id="@+id/tvContentTranslation"
@@ -24,7 +25,8 @@
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:paddingBottom="16dp" />
+            android:paddingBottom="16dp"
+            android:textIsSelectable="true" />
 
         <View
             android:layout_width="match_parent"
