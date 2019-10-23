@@ -1,0 +1,14 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512" >
+    <path
+        android:name="Эллипс 1"
+        android:fillColor="#fff"
+        android:pathData="m256.5 53c115.7 0 209.5 91.1 209.5 203.5c0 112.4 -93.8 203.5 -209.5 203.5c-115.7 0 -209.5 -91.1 -209.5 -203.5c0 -112.4 93.8 -203.5 209.5 -203.5z" />
+    <path
+        android:name="Эллипс 2"
+        android:fillColor="#4db6ac"
+        android:pathData="m256 30c126.1 0 228 101.3 228 226c0 124.7 -101.9 226 -228 226c-126.1 0 -228 -101.3 -228 -226c0 -124.7 101.9 -226 228 -226zm0 -20c-137 0 -248 110.1 -248 246c0 135.9 111 246 248 246c137 0 248 -110.1 248 -246c0 -135.9 -111 -246 -248 -246z" />
+</vector >
