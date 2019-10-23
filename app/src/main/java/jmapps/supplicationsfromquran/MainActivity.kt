@@ -8,8 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import jmapps.supplicationsfromquran.data.database.DatabaseLists
 import jmapps.supplicationsfromquran.data.database.DatabaseOpenHelper
+import jmapps.supplicationsfromquran.presentation.ui.about.BottomSheetAboutUs
 import jmapps.supplicationsfromquran.presentation.ui.main.MainAdapter
 import jmapps.supplicationsfromquran.presentation.ui.main.MainModel
+import jmapps.supplicationsfromquran.presentation.ui.settings.BottomSheetSettings
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -34,10 +36,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+        when (item.itemId) {
+
+            R.id.action_settings -> BottomSheetSettings().show(supportFragmentManager, "settings")
+
+            R.id.action_about_us -> BottomSheetAboutUs().show(supportFragmentManager, "about_us")
+
+            R.id.action_rate -> true
+
+            R.id.action_share -> true
         }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {
