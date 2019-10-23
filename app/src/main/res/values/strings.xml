@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Мольбы из Корана</string>
-    <string name="database_name">SQF_ru</string>
+    <string name="database_name">SFQ_ru</string>
     <string name="action_settings">Settings</string>
 </resources>

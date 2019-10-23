@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var database: SQLiteDatabase? = null
+    private lateinit var database: SQLiteDatabase
     private lateinit var mainContentList: MutableList<MainModel>
     private lateinit var mainAdapter: MainAdapter
 
@@ -58,6 +58,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun closeDatabase() {
-        database?.close()
+        database.close()
     }
 }
