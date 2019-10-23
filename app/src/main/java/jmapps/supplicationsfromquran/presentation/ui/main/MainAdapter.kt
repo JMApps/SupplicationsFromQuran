@@ -21,8 +21,8 @@ class MainAdapter(private val mainContentList: MutableList<MainModel>) :
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val strContentArabic = mainContentList[position].strContentArabic
         val strContentTranslation = mainContentList[position].strContentTranslation
-        val strContentName = mainContentList[position].strContentName
         val strNameAudio = mainContentList[position].strNameAudio
+        val strContentName = mainContentList[position].strContentName
 
         holder.tvContentArabic.text = strContentArabic
         holder.tvContentTranslation.text = Html.fromHtml(strContentTranslation)
