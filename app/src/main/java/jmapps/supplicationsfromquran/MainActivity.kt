@@ -1,9 +1,11 @@
 package jmapps.supplicationsfromquran
 
 import android.database.sqlite.SQLiteDatabase
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import jmapps.supplicationsfromquran.data.database.DatabaseLists
@@ -17,12 +19,18 @@ import jmapps.supplicationsfromquran.presentation.ui.settings.BottomSheetSetting
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
-class MainActivity : AppCompatActivity(), MainContract.MainView {
+class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.PlayPause,
+    MainAdapter.AudioProgress, MainAdapter.LoopOnOff, MainAdapter.CopyContent,
+    MainAdapter.ShareContent {
 
     private lateinit var database: SQLiteDatabase
+
     private lateinit var mainContentList: MutableList<MainModel>
     private lateinit var mainAdapter: MainAdapter
+
     private lateinit var mainPresenterImpl: MainPresenterImpl
+
+    private var player: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +79,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         mainContentList = DatabaseLists(this).getContentList
         val verticalLayout = LinearLayoutManager(this)
         rvMainContent.layoutManager = verticalLayout
-        mainAdapter = MainAdapter(mainContentList)
+        mainAdapter = MainAdapter(mainContentList, this, this, this, this, this)
         rvMainContent.adapter = mainAdapter
     }
 
@@ -81,5 +89,39 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
 
     override fun getAboutUs() {
         BottomSheetAboutUs().show(supportFragmentManager, "about_us")
+    }
+
+    override fun playPause(state: Boolean, position: Int) {
+        val resId: Int? = resources?.getIdentifier(
+            mainContentList[position].strNameAudio, "raw", "jmapps.supplicationsfromquran")
+        player = MediaPlayer.create(this, resId!!)
+        if (state) {
+            player?.start()
+        } else {
+            player?.pause()
+        }
+    }
+
+    override fun audioProgress(progress: Int, fromUser: Boolean) {
+        if (fromUser) {
+            player?.seekTo(progress * 1000)
+        }
+    }
+
+    override fun loopOnOff(state: Boolean) {
+        Toast.makeText(this, "Loop", Toast.LENGTH_LONG).show()
+    }
+
+    override fun copyContent() {
+        Toast.makeText(this, "Copy", Toast.LENGTH_LONG).show()
+    }
+
+    override fun shareContent() {
+        Toast.makeText(this, "Share", Toast.LENGTH_LONG).show()
+    }
+
+    private fun clear() {
+        player?.stop()
+        player?.release()
     }
 }
