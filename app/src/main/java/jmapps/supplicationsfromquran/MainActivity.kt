@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import jmapps.supplicationsfromquran.data.database.DatabaseLists
 import jmapps.supplicationsfromquran.data.database.DatabaseOpenHelper
+import jmapps.supplicationsfromquran.presentation.mvp.main.MainContract
+import jmapps.supplicationsfromquran.presentation.mvp.main.MainPresenterImpl
 import jmapps.supplicationsfromquran.presentation.ui.about.BottomSheetAboutUs
 import jmapps.supplicationsfromquran.presentation.ui.main.MainAdapter
 import jmapps.supplicationsfromquran.presentation.ui.main.MainModel
@@ -15,16 +17,19 @@ import jmapps.supplicationsfromquran.presentation.ui.settings.BottomSheetSetting
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContract.MainView {
 
     private lateinit var database: SQLiteDatabase
     private lateinit var mainContentList: MutableList<MainModel>
     private lateinit var mainAdapter: MainAdapter
+    private lateinit var mainPresenterImpl: MainPresenterImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        mainPresenterImpl = MainPresenterImpl(this, this)
 
         openDatabase()
         initMainContent()
@@ -38,13 +43,13 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
 
-            R.id.action_settings -> BottomSheetSettings().show(supportFragmentManager, "settings")
+            R.id.action_settings -> mainPresenterImpl.getSettings()
 
-            R.id.action_about_us -> BottomSheetAboutUs().show(supportFragmentManager, "about_us")
+            R.id.action_about_us -> mainPresenterImpl.getAboutUs()
 
-            R.id.action_rate -> true
+            R.id.action_rate -> mainPresenterImpl.rateApp()
 
-            R.id.action_share -> true
+            R.id.action_share -> mainPresenterImpl.shareAppLink()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -54,7 +59,15 @@ class MainActivity : AppCompatActivity() {
         closeDatabase()
     }
 
-    private fun initMainContent() {
+    override fun openDatabase() {
+        database = DatabaseOpenHelper(this).readableDatabase
+    }
+
+    override fun closeDatabase() {
+        database.close()
+    }
+
+    override fun initMainContent() {
         mainContentList = DatabaseLists(this).getContentList
         val verticalLayout = LinearLayoutManager(this)
         rvMainContent.layoutManager = verticalLayout
@@ -62,11 +75,11 @@ class MainActivity : AppCompatActivity() {
         rvMainContent.adapter = mainAdapter
     }
 
-    private fun openDatabase() {
-        database = DatabaseOpenHelper(this).readableDatabase
+    override fun getSettings() {
+        BottomSheetSettings().show(supportFragmentManager, "settings")
     }
 
-    private fun closeDatabase() {
-        database.close()
+    override fun getAboutUs() {
+        BottomSheetAboutUs().show(supportFragmentManager, "about_us")
     }
 }
