@@ -3,9 +3,13 @@ package jmapps.supplicationsfromquran
 import android.database.sqlite.SQLiteDatabase
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+import android.view.View
+import android.widget.Button
+import android.widget.CompoundButton
+import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import jmapps.supplicationsfromquran.data.database.DatabaseLists
@@ -19,9 +23,8 @@ import jmapps.supplicationsfromquran.presentation.ui.settings.BottomSheetSetting
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
-class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.PlayPause,
-    MainAdapter.AudioProgress, MainAdapter.LoopOnOff, MainAdapter.CopyContent,
-    MainAdapter.ShareContent {
+class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.FindButtons,
+    View.OnClickListener {
 
     private lateinit var database: SQLiteDatabase
 
@@ -31,6 +34,8 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Pla
     private lateinit var mainPresenterImpl: MainPresenterImpl
 
     private var player: MediaPlayer? = null
+    private lateinit var runnable: Runnable
+    private var handler: Handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,7 +84,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Pla
         mainContentList = DatabaseLists(this).getContentList
         val verticalLayout = LinearLayoutManager(this)
         rvMainContent.layoutManager = verticalLayout
-        mainAdapter = MainAdapter(mainContentList, this, this, this, this, this)
+        mainAdapter = MainAdapter(mainContentList, this)
         rvMainContent.adapter = mainAdapter
     }
 
@@ -91,37 +96,30 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Pla
         BottomSheetAboutUs().show(supportFragmentManager, "about_us")
     }
 
-    override fun playPause(state: Boolean, position: Int) {
-        val resId: Int? = resources?.getIdentifier(
-            mainContentList[position].strNameAudio, "raw", "jmapps.supplicationsfromquran")
-        player = MediaPlayer.create(this, resId!!)
-        if (state) {
-            player?.start()
-        } else {
-            player?.pause()
+    override fun findButtons(btnPlay: Button, btnCopy: Button, btnShare: Button) {
+        btnPlay.setOnClickListener(this)
+        btnCopy.setOnClickListener(this)
+        btnShare.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id) {
+
+            R.id.btnPlayPause -> {}
+
+            R.id.btnCopy -> {}
+
+            R.id.btnShare -> {}
         }
-    }
-
-    override fun audioProgress(progress: Int, fromUser: Boolean) {
-        if (fromUser) {
-            player?.seekTo(progress * 1000)
-        }
-    }
-
-    override fun loopOnOff(state: Boolean) {
-        Toast.makeText(this, "Loop", Toast.LENGTH_LONG).show()
-    }
-
-    override fun copyContent() {
-        Toast.makeText(this, "Copy", Toast.LENGTH_LONG).show()
-    }
-
-    override fun shareContent() {
-        Toast.makeText(this, "Share", Toast.LENGTH_LONG).show()
     }
 
     private fun clear() {
         player?.stop()
         player?.release()
     }
+
+//    val resId: Int? = resources?.getIdentifier(
+//        mainContentList[1].strNameAudio, "raw", "jmapps.supplicationsfromquran")
+//    player = MediaPlayer.create(this, resId!!)
+//    player?.start()
 }

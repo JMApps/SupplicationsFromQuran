@@ -42,32 +42,16 @@
             android:orientation="horizontal"
             android:padding="8dp">
 
-            <ToggleButton
-                android:id="@+id/tbPlayPause"
+            <Button
+                android:id="@+id/btnPlayPause"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="@drawable/state_play"
-                android:text=""
-                android:textOff=""
-                android:textOn="" />
+                android:background="@drawable/ic_play" />
 
-            <SeekBar
-                android:id="@+id/sbAudioProgress"
+            <View
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_height="1dp"
                 android:layout_weight="1" />
-
-            <ToggleButton
-                android:id="@+id/tbLoop"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/state_loop"
-                android:text=""
-                android:textOff=""
-                android:textOn="" />
 
             <Button
                 android:id="@+id/btnCopy"
