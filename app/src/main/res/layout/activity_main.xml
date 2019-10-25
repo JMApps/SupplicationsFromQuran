@@ -35,12 +35,12 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:padding="12dp">
 
             <Button
                 android:id="@+id/btnPrevious"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:background="@drawable/state_previous"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -48,8 +48,8 @@
 
             <ToggleButton
                 android:id="@+id/tbPlayPause"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/state_play"
                 android:text=""
@@ -61,8 +61,8 @@
 
             <Button
                 android:id="@+id/btnNext"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/state_next"
                 app:layout_constraintBottom_toBottomOf="@+id/tbPlayPause"
@@ -78,13 +78,13 @@
                 app:layout_constraintBottom_toBottomOf="@+id/btnNext"
                 app:layout_constraintEnd_toStartOf="@+id/tbLoop"
                 app:layout_constraintStart_toEndOf="@+id/btnNext"
-                app:layout_constraintTop_toTopOf="@+id/btnNext" />
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <ToggleButton
                 android:id="@+id/tbLoop"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/state_loop"
                 android:text=""

@@ -12,11 +12,17 @@ class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val tvContentTranslation: TextView = itemView.findViewById(R.id.tvContentTranslation)
     val tvContentName: TextView = itemView.findViewById(R.id.tvContentName)
 
-    private val btnPlayPause: Button = itemView.findViewById(R.id.btnPlayPause)
+    val btnPlayPause: Button = itemView.findViewById(R.id.btnPlayPause)
     private val btnCopy: Button = itemView.findViewById(R.id.btnCopy)
     private val btnShare: Button = itemView.findViewById(R.id.btnShare)
 
+    fun findPlayItem(playItem: MainAdapter.PlayItem, position: Int) {
+        itemView.setOnClickListener {
+            playItem.playItem(position)
+        }
+    }
+
     fun findButtons(findButtons: MainAdapter.FindButtons) {
-        findButtons.findButtons(btnPlayPause, btnCopy, btnShare)
+        findButtons.findButtons(btnCopy, btnShare)
     }
 }

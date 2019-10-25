@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.CompoundButton
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import jmapps.supplicationsfromquran.data.database.DatabaseLists
@@ -24,7 +25,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.FindButtons,
-    View.OnClickListener {
+    View.OnClickListener, CompoundButton.OnCheckedChangeListener, MainAdapter.PlayItem {
 
     private lateinit var database: SQLiteDatabase
 
@@ -46,6 +47,10 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
 
         openDatabase()
         initMainContent()
+
+        btnPrevious.setOnClickListener(this)
+        tbPlayPause.setOnCheckedChangeListener(this)
+        btnNext.setOnClickListener(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -84,7 +89,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
         mainContentList = DatabaseLists(this).getContentList
         val verticalLayout = LinearLayoutManager(this)
         rvMainContent.layoutManager = verticalLayout
-        mainAdapter = MainAdapter(mainContentList, this)
+        mainAdapter = MainAdapter(mainContentList, this, this)
         rvMainContent.adapter = mainAdapter
     }
 
@@ -96,21 +101,33 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
         BottomSheetAboutUs().show(supportFragmentManager, "about_us")
     }
 
-    override fun findButtons(btnPlay: Button, btnCopy: Button, btnShare: Button) {
-        btnPlay.setOnClickListener(this)
+    override fun findButtons(btnCopy: Button, btnShare: Button) {
         btnCopy.setOnClickListener(this)
         btnShare.setOnClickListener(this)
+    }
+
+    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+        if (!isChecked) {
+            mainAdapter.onItemSelected(-1)
+        }
     }
 
     override fun onClick(v: View?) {
         when(v?.id) {
 
-            R.id.btnPlayPause -> {}
+            R.id.btnCopy -> {Toast.makeText(this, "Copy", Toast.LENGTH_LONG).show()}
 
-            R.id.btnCopy -> {}
+            R.id.btnShare -> {Toast.makeText(this, "Share", Toast.LENGTH_LONG).show()}
 
-            R.id.btnShare -> {}
+            R.id.btnPrevious -> {Toast.makeText(this, "Previous", Toast.LENGTH_LONG).show()}
+
+            R.id.btnNext -> {Toast.makeText(this, "Next", Toast.LENGTH_LONG).show()}
         }
+    }
+
+    override fun playItem(position: Int) {
+        mainAdapter.onItemSelected(position)
+        tbPlayPause.isChecked = position != -1
     }
 
     private fun clear() {

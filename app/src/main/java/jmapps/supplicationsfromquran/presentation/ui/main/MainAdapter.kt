@@ -9,13 +9,18 @@ import jmapps.supplicationsfromquran.R
 
 class MainAdapter(
     private val mainContentList: MutableList<MainModel>,
+    private val playItem: PlayItem,
     private val findButtons: FindButtons) :
     RecyclerView.Adapter<MainViewHolder>() {
 
     private var currentIndex: Int = -1
 
+    interface PlayItem {
+        fun playItem(position: Int)
+    }
+
     interface FindButtons {
-        fun findButtons(btnPlay: Button, btnCopy: Button, btnShare: Button)
+        fun findButtons(btnCopy: Button, btnShare: Button)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -40,7 +45,14 @@ class MainAdapter(
         holder.tvContentTranslation.text = Html.fromHtml(strContentTranslation)
         holder.tvContentName.text = strContentName
 
+        holder.findPlayItem(playItem, position)
         holder.findButtons(findButtons)
+
+        if (currentIndex == position) {
+            holder.btnPlayPause.setBackgroundResource(R.drawable.ic_pause)
+        } else {
+            holder.btnPlayPause.setBackgroundResource(R.drawable.ic_play)
+        }
     }
 
     fun onItemSelected(currentIndex: Int) {
