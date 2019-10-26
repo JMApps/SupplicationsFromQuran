@@ -49,9 +49,9 @@ class MainAdapter(
         holder.findButtons(findButtons)
 
         if (currentIndex == position) {
-            holder.btnPlayPause.setBackgroundResource(R.drawable.ic_pause)
-        } else {
             holder.btnPlayPause.setBackgroundResource(R.drawable.ic_play)
+        } else {
+            holder.btnPlayPause.setBackgroundResource(R.drawable.ic_pause)
         }
     }
 

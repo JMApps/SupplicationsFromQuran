@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.CompoundButton
-import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,7 +24,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.FindButtons,
-    View.OnClickListener, CompoundButton.OnCheckedChangeListener, MainAdapter.PlayItem {
+    View.OnClickListener, CompoundButton.OnCheckedChangeListener, MainAdapter.PlayItem,
+    MediaPlayer.OnCompletionListener {
 
     private lateinit var database: SQLiteDatabase
 
@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
     private var player: MediaPlayer? = null
     private lateinit var runnable: Runnable
     private var handler: Handler = Handler()
+    private var trackIndex: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +71,11 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
             R.id.action_share -> mainPresenterImpl.shareAppLink()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        clear()
     }
 
     override fun onDestroy() {
@@ -107,36 +113,105 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
     }
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-        if (!isChecked) {
+        if (isChecked) {
+            if (player == null) {
+                initPlayer(trackIndex)
+                player?.start()
+            } else {
+                player?.start()
+            }
+            mainAdapter.onItemSelected(trackIndex)
+            player?.setOnCompletionListener(this)
+        } else {
             mainAdapter.onItemSelected(-1)
+            if (player?.isPlaying!!) {
+                player?.pause()
+            }
+        }
+    }
+
+    override fun onCompletion(mp: MediaPlayer?) {
+        if (trackIndex < mainContentList.size - 1) {
+            trackIndex++
+            initPlayer(trackIndex)
+            mainAdapter.onItemSelected(trackIndex)
+            rvMainContent.smoothScrollToPosition(trackIndex)
+            player?.start()
+            player?.setOnCompletionListener(this)
+        } else {
+            trackIndex = 0
+            rvMainContent.smoothScrollToPosition(trackIndex)
+            mainAdapter.onItemSelected(-1)
+            tbPlayPause.isChecked = false
         }
     }
 
     override fun onClick(v: View?) {
-        when(v?.id) {
+        when (v?.id) {
 
-            R.id.btnCopy -> {Toast.makeText(this, "Copy", Toast.LENGTH_LONG).show()}
+            R.id.btnCopy -> {
+                Toast.makeText(this, "Copy", Toast.LENGTH_LONG).show()
+            }
 
-            R.id.btnShare -> {Toast.makeText(this, "Share", Toast.LENGTH_LONG).show()}
+            R.id.btnShare -> {
+                Toast.makeText(this, "Share", Toast.LENGTH_LONG).show()
+            }
 
-            R.id.btnPrevious -> {Toast.makeText(this, "Previous", Toast.LENGTH_LONG).show()}
+            R.id.btnPrevious -> {
+                if (trackIndex > 0) {
+                    trackIndex--
+                    mainAdapter.onItemSelected(trackIndex)
+                    tbPlayPause.isChecked = true
+                    rvMainContent.smoothScrollToPosition(trackIndex)
+                    initPlayer(trackIndex)
+                    player?.start()
+                    player?.setOnCompletionListener {
+                        tbPlayPause.isChecked = false
+                        mainAdapter.onItemSelected(-1)
+                    }
+                }
+            }
 
-            R.id.btnNext -> {Toast.makeText(this, "Next", Toast.LENGTH_LONG).show()}
+            R.id.btnNext -> {
+                if (trackIndex < mainContentList.size - 1) {
+                    trackIndex++
+                    mainAdapter.onItemSelected(trackIndex)
+                    tbPlayPause.isChecked = true
+                    rvMainContent.smoothScrollToPosition(trackIndex)
+                    initPlayer(trackIndex)
+                    player?.start()
+                    player?.setOnCompletionListener {
+                        tbPlayPause.isChecked = false
+                        mainAdapter.onItemSelected(-1)
+                    }
+                }
+            }
         }
     }
 
     override fun playItem(position: Int) {
+        trackIndex = position
         mainAdapter.onItemSelected(position)
         tbPlayPause.isChecked = position != -1
+        initPlayer(trackIndex)
+        player?.start()
+        player?.setOnCompletionListener {
+            tbPlayPause.isChecked = false
+            mainAdapter.onItemSelected(-1)
+        }
+
+    }
+
+    private fun initPlayer(index: Int) {
+        clear()
+        val resId: Int? = resources?.getIdentifier(
+            mainContentList[index].strNameAudio, "raw", "jmapps.supplicationsfromquran"
+        )
+        player = MediaPlayer.create(this, resId!!)
     }
 
     private fun clear() {
         player?.stop()
         player?.release()
     }
-
-//    val resId: Int? = resources?.getIdentifier(
-//        mainContentList[1].strNameAudio, "raw", "jmapps.supplicationsfromquran")
-//    player = MediaPlayer.create(this, resId!!)
-//    player?.start()
 }

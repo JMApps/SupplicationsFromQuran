@@ -16,7 +16,6 @@
             android:id="@+id/tvContentArabic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusable="true"
             android:fontFamily="@font/quran_font"
             android:padding="16dp" />
 
@@ -51,7 +50,8 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:focusable="true" />
 
             <Button
                 android:id="@+id/btnCopy"
