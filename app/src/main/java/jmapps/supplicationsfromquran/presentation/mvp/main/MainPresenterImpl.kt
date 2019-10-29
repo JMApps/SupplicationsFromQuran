@@ -8,9 +8,8 @@ class MainPresenterImpl(
     private val mainView: MainContract.MainView?,
     private val context: Context?) : MainContract.MainPresenter {
 
-    private val linkDescription = "Мольбы из Корана\n"
-    private val linkApp =
-        "https://play.google.com/store/apps/details?id=jmapps.supplicationsfromquran"
+    private val linkDescription = "Мольбы из Корана"
+    private val linkApp = "https://play.google.com/store/apps/details?id=jmapps.supplicationsfromquran"
 
     override fun openDatabase() {
         mainView?.openDatabase()
@@ -41,7 +40,7 @@ class MainPresenterImpl(
     override fun shareAppLink() {
         val shareLink = Intent(Intent.ACTION_SEND)
         shareLink.type = "text/plain"
-        shareLink.putExtra(Intent.EXTRA_TEXT, "$linkDescription$linkApp")
+        shareLink.putExtra(Intent.EXTRA_TEXT, "$linkDescription\n$linkApp")
         context?.startActivity(shareLink)
     }
 }

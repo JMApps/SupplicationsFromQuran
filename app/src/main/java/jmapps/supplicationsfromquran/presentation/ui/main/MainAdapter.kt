@@ -24,11 +24,8 @@ class MainAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-        return MainViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_main_content, parent, false
-            )
-        )
+        return MainViewHolder(LayoutInflater.from(parent.context).inflate(
+                R.layout.item_main_content, parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -45,14 +42,14 @@ class MainAdapter(
         holder.tvContentTranslation.text = Html.fromHtml(strContentTranslation)
         holder.tvContentName.text = strContentName
 
-        holder.findPlayItem(playItem, position)
-        holder.findButtons(findButtons)
-
         if (currentIndex == position) {
             holder.btnPlayPause.setBackgroundResource(R.drawable.ic_play)
         } else {
             holder.btnPlayPause.setBackgroundResource(R.drawable.ic_pause)
         }
+
+        holder.findPlayItem(playItem, position)
+        holder.findButtons(findButtons)
     }
 
     fun onItemSelected(currentIndex: Int) {

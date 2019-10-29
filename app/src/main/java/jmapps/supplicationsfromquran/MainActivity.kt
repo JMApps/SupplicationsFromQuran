@@ -107,7 +107,9 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
     }
 
     override fun getAboutUs() {
-        BottomSheetAboutUs().show(supportFragmentManager, "about_us")
+        val aboutUs = BottomSheetAboutUs()
+        aboutUs.setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.BottomSheetStyleFull)
+        aboutUs.show(supportFragmentManager, "about_us")
     }
 
     override fun findButtons(btnCopy: Button, btnShare: Button) {
