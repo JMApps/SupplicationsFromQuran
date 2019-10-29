@@ -16,7 +16,7 @@
     <string name="text_font_two">Serif</string>
     <string name="text_font_three">Roboto</string>
     <string name="action_text_size_ayahs">Размер текста аятов</string>
-    <string name="action_text_size_translations">Размер текста перевода</string>
+    <string name="action_text_size_translations">Размер текста перевода аятов</string>
     <string name="action_showing_translations">Отображение аятов</string>
 
     <string name="about_us_text">

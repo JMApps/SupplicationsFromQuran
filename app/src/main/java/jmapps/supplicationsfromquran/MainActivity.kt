@@ -12,6 +12,7 @@ import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import jmapps.supplicationsfromquran.data.database.DatabaseLists
 import jmapps.supplicationsfromquran.data.database.DatabaseOpenHelper
 import jmapps.supplicationsfromquran.presentation.mvp.main.MainContract
@@ -100,7 +101,9 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
     }
 
     override fun getSettings() {
-        BottomSheetSettings().show(supportFragmentManager, "settings")
+        val settings = BottomSheetSettings()
+        settings.setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.BottomSheetStyleFull)
+        settings.show(supportFragmentManager, "settings")
     }
 
     override fun getAboutUs() {
