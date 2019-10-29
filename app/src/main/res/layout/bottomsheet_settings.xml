@@ -29,12 +29,12 @@
         android:text="@string/action_text_mode"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/rgMode"
+        app:layout_constraintEnd_toEndOf="@+id/rgModeBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSettingDescription" />
 
     <RadioGroup
-        android:id="@+id/rgMode"
+        android:id="@+id/rgModeBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -86,7 +86,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rgMode" />
+        app:layout_constraintTop_toBottomOf="@+id/rgModeBackground" />
 
     <SeekBar
         android:id="@+id/sbTextSizeAyahs"
