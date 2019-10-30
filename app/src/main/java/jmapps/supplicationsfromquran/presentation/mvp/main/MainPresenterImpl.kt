@@ -3,12 +3,13 @@ package jmapps.supplicationsfromquran.presentation.mvp.main
 import android.content.Context
 import android.content.Intent
 import androidx.core.net.toUri
+import jmapps.supplicationsfromquran.R
 
 class MainPresenterImpl(
     private val mainView: MainContract.MainView?,
     private val context: Context?) : MainContract.MainPresenter {
 
-    private val linkDescription = "Мольбы из Корана"
+    private val linkDescription = context?.getString(R.string.app_name)
     private val linkApp = "https://play.google.com/store/apps/details?id=jmapps.supplicationsfromquran"
 
     override fun openDatabase() {
