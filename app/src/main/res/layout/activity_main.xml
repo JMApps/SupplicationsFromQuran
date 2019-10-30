@@ -24,12 +24,14 @@
     <include layout="@layout/content_main" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:backgroundTint="@color/colorPrimary"
         app:fabAlignmentMode="center"
         app:hideOnScroll="true"
+        app:layout_anchorGravity="center"
         app:layout_scrollFlags="scroll|enterAlways">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,7 +80,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/btnNext"
                 app:layout_constraintEnd_toStartOf="@+id/tbLoop"
                 app:layout_constraintStart_toEndOf="@+id/btnNext"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/btnNext" />
 
 
             <ToggleButton
@@ -91,8 +93,20 @@
                 android:textOff=""
                 android:textOn=""
                 app:layout_constraintBottom_toBottomOf="@+id/sbAudioProgress"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tbFollowing"
                 app:layout_constraintTop_toTopOf="@+id/sbAudioProgress" />
+
+            <ToggleButton
+                android:id="@+id/tbFollowing"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/state_following"
+                android:text=""
+                android:textOff=""
+                android:textOn=""
+                app:layout_constraintBottom_toBottomOf="@+id/tbLoop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tbLoop" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.bottomappbar.BottomAppBar>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
