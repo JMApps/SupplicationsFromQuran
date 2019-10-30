@@ -43,8 +43,8 @@
 
             <Button
                 android:id="@+id/btnPlayPause"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="@drawable/ic_play"
                 android:clickable="false" />
 
@@ -56,15 +56,15 @@
 
             <Button
                 android:id="@+id/btnCopy"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/state_copy" />
 
             <Button
                 android:id="@+id/btnShare"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/state_share" />
 
@@ -78,7 +78,7 @@
                 android:paddingRight="8dp"
                 android:paddingBottom="5dp"
                 android:textColor="@color/White"
-                android:textSize="16sp" />
+                android:textSize="17sp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
