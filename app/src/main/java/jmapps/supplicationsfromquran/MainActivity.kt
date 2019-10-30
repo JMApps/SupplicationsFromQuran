@@ -57,6 +57,15 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
         sbAudioProgress.setOnSeekBarChangeListener(this)
         tbFollowing.setOnCheckedChangeListener(this)
         tbLoop.setOnCheckedChangeListener(this)
+
+        when (resources.configuration.smallestScreenWidthDp) {
+            600 -> {
+                Toast.makeText(this, "pook", Toast.LENGTH_LONG).show()
+            }
+
+            720 -> {
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -131,7 +140,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
                         player?.start()
                     }
                 } else {
-                    mainAdapter.onItemSelected(- 1)
+                    mainAdapter.onItemSelected(-1)
                     if (player?.isPlaying!!) {
                         player?.pause()
                     }
@@ -140,17 +149,26 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
 
             R.id.tbLoop -> {
                 if (isChecked) {
+                    if (tbFollowing.isChecked) {
+                        tbFollowing.isChecked = false
+                    }
                     Toast.makeText(this, R.string.action_loop_on, Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(this, R.string.action_loop_off, Toast.LENGTH_LONG).show()
                 }
+                player?.isLooping = isChecked
             }
 
             R.id.tbFollowing -> {
                 if (isChecked) {
-                    Toast.makeText(this, R.string.action_following_play_on, Toast.LENGTH_LONG).show()
+                    if (tbLoop.isChecked) {
+                        tbLoop.isChecked = false
+                    }
+                    Toast.makeText(this, R.string.action_following_play_on, Toast.LENGTH_LONG)
+                        .show()
                 } else {
-                    Toast.makeText(this, R.string.action_following_play_off, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, R.string.action_following_play_off, Toast.LENGTH_LONG)
+                        .show()
                 }
             }
         }
@@ -170,34 +188,20 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
             R.id.btnPrevious -> {
                 if (trackIndex > 0) {
                     trackIndex--
-                    mainAdapter.onItemSelected(trackIndex)
-                    tbPlayPause.isChecked = true
-                    rvMainContent.smoothScrollToPosition(trackIndex)
                     initPlayer(trackIndex)
                     player?.start()
-                    player?.setOnCompletionListener {
-                        tbPlayPause.isChecked = false
-                        mainAdapter.onItemSelected(-1)
-                        handler.removeCallbacks(runnable)
-                        sbAudioProgress?.progress = 0
-                    }
+                    tbPlayPause.isChecked = true
+                    rvMainContent.smoothScrollToPosition(trackIndex)
                 }
             }
 
             R.id.btnNext -> {
                 if (trackIndex < mainContentList.size - 1) {
                     trackIndex++
-                    mainAdapter.onItemSelected(trackIndex)
-                    tbPlayPause.isChecked = true
-                    rvMainContent.smoothScrollToPosition(trackIndex)
                     initPlayer(trackIndex)
                     player?.start()
-                    player?.setOnCompletionListener {
-                        tbPlayPause.isChecked = false
-                        mainAdapter.onItemSelected(-1)
-                        handler.removeCallbacks(runnable)
-                        sbAudioProgress?.progress = 0
-                    }
+                    tbPlayPause.isChecked = true
+                    rvMainContent.smoothScrollToPosition(trackIndex)
                 }
             }
         }
@@ -215,8 +219,10 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
 
     private fun initPlayer(index: Int) {
         clear()
-        val resId: Int? = resources?.getIdentifier(mainContentList[index].strNameAudio,
-            "raw", "jmapps.supplicationsfromquran")
+        val resId: Int? = resources?.getIdentifier(
+            mainContentList[index].strNameAudio,
+            "raw", "jmapps.supplicationsfromquran"
+        )
         player = MediaPlayer.create(this, resId!!)
         mainAdapter.onItemSelected(index)
         currentAudioProgress()
@@ -225,33 +231,38 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
 
     override fun playItem(position: Int) {
         trackIndex = position
-        tbPlayPause.isChecked = position != - 1
+        tbPlayPause.isChecked = position != -1
         initPlayer(trackIndex)
         player?.start()
     }
 
     override fun onCompletion(mp: MediaPlayer?) {
-        if (tbFollowing.isChecked) {
-            if (trackIndex < mainContentList.size - 1) {
-                trackIndex++
-                initPlayer(trackIndex)
-                rvMainContent.smoothScrollToPosition(trackIndex)
-                player?.start()
+        if (tbLoop.isChecked) {
+            player?.isLooping = true
+        } else {
+            player?.isLooping = false
+            if (tbFollowing.isChecked) {
+                if (trackIndex < mainContentList.size - 1) {
+                    trackIndex++
+                    initPlayer(trackIndex)
+                    rvMainContent.smoothScrollToPosition(trackIndex)
+                    player?.start()
+                } else {
+                    trackIndex = 0
+                    rvMainContent.smoothScrollToPosition(trackIndex)
+                    mainAdapter.onItemSelected(-1)
+                    tbPlayPause.isChecked = false
+                    tbFollowing.isChecked = false
+                    handler.removeCallbacks(runnable)
+                    sbAudioProgress?.progress = 0
+                    player = null
+                }
             } else {
-                trackIndex = 0
-                rvMainContent.smoothScrollToPosition(trackIndex)
-                mainAdapter.onItemSelected(- 1)
                 tbPlayPause.isChecked = false
-                tbFollowing.isChecked = false
+                mainAdapter.onItemSelected(-1)
                 handler.removeCallbacks(runnable)
                 sbAudioProgress?.progress = 0
-                player = null
             }
-        } else {
-            tbPlayPause.isChecked = false
-            mainAdapter.onItemSelected(- 1)
-            handler.removeCallbacks(runnable)
-            sbAudioProgress?.progress = 0
         }
     }
 
@@ -259,9 +270,9 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
         sbAudioProgress?.max = player?.seconds!!
         runnable = Runnable {
             sbAudioProgress?.progress = player?.currentSeconds!!
-            handler.postDelayed(runnable, 100)
+            handler.postDelayed(runnable, 1000)
         }
-        handler.postDelayed(runnable, 100)
+        handler.postDelayed(runnable, 1000)
     }
 
     private fun clear() {

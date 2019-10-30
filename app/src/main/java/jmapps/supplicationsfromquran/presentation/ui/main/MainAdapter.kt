@@ -48,8 +48,8 @@ class MainAdapter(
             holder.btnPlayPause.setBackgroundResource(R.drawable.ic_pause)
         }
 
-        holder.findPlayItem(playItem, position)
         holder.findButtons(findButtons)
+        holder.findPlayItem(playItem, position)
     }
 
     fun onItemSelected(currentIndex: Int) {
