@@ -43,9 +43,10 @@
 
             <Button
                 android:id="@+id/btnPlayPause"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:background="@drawable/ic_play" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_play"
+                android:clickable="false" />
 
             <View
                 android:layout_width="0dp"

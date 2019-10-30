@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.CompoundButton
+import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,9 +27,9 @@ import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.FindButtons,
     View.OnClickListener, CompoundButton.OnCheckedChangeListener, MainAdapter.PlayItem,
-    MediaPlayer.OnCompletionListener {
+    MediaPlayer.OnCompletionListener, SeekBar.OnSeekBarChangeListener {
 
-    private lateinit var database: SQLiteDatabase
+    private var database: SQLiteDatabase? = null
 
     private lateinit var mainContentList: MutableList<MainModel>
     private lateinit var mainAdapter: MainAdapter
@@ -53,6 +54,9 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
         btnPrevious.setOnClickListener(this)
         tbPlayPause.setOnCheckedChangeListener(this)
         btnNext.setOnClickListener(this)
+        sbAudioProgress.setOnSeekBarChangeListener(this)
+        tbFollowing.setOnCheckedChangeListener(this)
+        tbLoop.setOnCheckedChangeListener(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -74,14 +78,10 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onResume() {
-        super.onResume()
-        clear()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         closeDatabase()
+        clear()
     }
 
     override fun openDatabase() {
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
     }
 
     override fun closeDatabase() {
-        database.close()
+        database?.close()
     }
 
     override fun initMainContent() {
@@ -118,36 +118,41 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
     }
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-        if (isChecked) {
-            if (player == null) {
-                initPlayer(trackIndex)
-                player?.start()
-            } else {
-                player?.start()
-            }
-            mainAdapter.onItemSelected(trackIndex)
-            player?.setOnCompletionListener(this)
-        } else {
-            mainAdapter.onItemSelected(-1)
-            if (player?.isPlaying!!) {
-                player?.pause()
-            }
-        }
-    }
+        when (buttonView?.id) {
 
-    override fun onCompletion(mp: MediaPlayer?) {
-        if (trackIndex < mainContentList.size - 1) {
-            trackIndex++
-            initPlayer(trackIndex)
-            mainAdapter.onItemSelected(trackIndex)
-            rvMainContent.smoothScrollToPosition(trackIndex)
-            player?.start()
-            player?.setOnCompletionListener(this)
-        } else {
-            trackIndex = 0
-            rvMainContent.smoothScrollToPosition(trackIndex)
-            mainAdapter.onItemSelected(-1)
-            tbPlayPause.isChecked = false
+            R.id.tbPlayPause -> {
+                if (isChecked) {
+                    if (player == null) {
+                        initPlayer(trackIndex)
+                        player?.start()
+                    } else {
+                        mainAdapter.onItemSelected(trackIndex)
+                        currentAudioProgress()
+                        player?.start()
+                    }
+                } else {
+                    mainAdapter.onItemSelected(- 1)
+                    if (player?.isPlaying!!) {
+                        player?.pause()
+                    }
+                }
+            }
+
+            R.id.tbLoop -> {
+                if (isChecked) {
+                    Toast.makeText(this, R.string.action_loop_on, Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this, R.string.action_loop_off, Toast.LENGTH_LONG).show()
+                }
+            }
+
+            R.id.tbFollowing -> {
+                if (isChecked) {
+                    Toast.makeText(this, R.string.action_following_play_on, Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this, R.string.action_following_play_off, Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 
@@ -155,11 +160,11 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
         when (v?.id) {
 
             R.id.btnCopy -> {
-                Toast.makeText(this, "Copy", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, R.string.action_copied, Toast.LENGTH_LONG).show()
             }
 
             R.id.btnShare -> {
-                Toast.makeText(this, "Share", Toast.LENGTH_LONG).show()
+
             }
 
             R.id.btnPrevious -> {
@@ -173,6 +178,8 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
                     player?.setOnCompletionListener {
                         tbPlayPause.isChecked = false
                         mainAdapter.onItemSelected(-1)
+                        handler.removeCallbacks(runnable)
+                        sbAudioProgress?.progress = 0
                     }
                 }
             }
@@ -188,35 +195,87 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
                     player?.setOnCompletionListener {
                         tbPlayPause.isChecked = false
                         mainAdapter.onItemSelected(-1)
+                        handler.removeCallbacks(runnable)
+                        sbAudioProgress?.progress = 0
                     }
                 }
             }
         }
     }
 
-    override fun playItem(position: Int) {
-        trackIndex = position
-        mainAdapter.onItemSelected(position)
-        tbPlayPause.isChecked = position != -1
-        initPlayer(trackIndex)
-        player?.start()
-        player?.setOnCompletionListener {
-            tbPlayPause.isChecked = false
-            mainAdapter.onItemSelected(-1)
+    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+        if (fromUser) {
+            player?.seekTo(progress * 1000)
         }
-
     }
+
+    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
 
     private fun initPlayer(index: Int) {
         clear()
-        val resId: Int? = resources?.getIdentifier(
-            mainContentList[index].strNameAudio, "raw", "jmapps.supplicationsfromquran"
-        )
+        val resId: Int? = resources?.getIdentifier(mainContentList[index].strNameAudio,
+            "raw", "jmapps.supplicationsfromquran")
         player = MediaPlayer.create(this, resId!!)
+        mainAdapter.onItemSelected(index)
+        currentAudioProgress()
+        player?.setOnCompletionListener(this)
+    }
+
+    override fun playItem(position: Int) {
+        trackIndex = position
+        tbPlayPause.isChecked = position != - 1
+        initPlayer(trackIndex)
+        player?.start()
+    }
+
+    override fun onCompletion(mp: MediaPlayer?) {
+        if (tbFollowing.isChecked) {
+            if (trackIndex < mainContentList.size - 1) {
+                trackIndex++
+                initPlayer(trackIndex)
+                rvMainContent.smoothScrollToPosition(trackIndex)
+                player?.start()
+            } else {
+                trackIndex = 0
+                rvMainContent.smoothScrollToPosition(trackIndex)
+                mainAdapter.onItemSelected(- 1)
+                tbPlayPause.isChecked = false
+                tbFollowing.isChecked = false
+                handler.removeCallbacks(runnable)
+                sbAudioProgress?.progress = 0
+                player = null
+            }
+        } else {
+            tbPlayPause.isChecked = false
+            mainAdapter.onItemSelected(- 1)
+            handler.removeCallbacks(runnable)
+            sbAudioProgress?.progress = 0
+        }
+    }
+
+    private fun currentAudioProgress() {
+        sbAudioProgress?.max = player?.seconds!!
+        runnable = Runnable {
+            sbAudioProgress?.progress = player?.currentSeconds!!
+            handler.postDelayed(runnable, 100)
+        }
+        handler.postDelayed(runnable, 100)
     }
 
     private fun clear() {
         player?.stop()
         player?.release()
     }
+
+    private val MediaPlayer.seconds: Int
+        get() {
+            return this.duration / 1000
+        }
+
+    private val MediaPlayer.currentSeconds: Int
+        get() {
+            return this.currentPosition / 1000
+        }
 }
