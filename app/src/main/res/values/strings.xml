@@ -33,4 +33,11 @@
         JMAppsMuslim@gmail.com или в Telegram: t.me/dev_muslim
     </string>
     <string name="action_ayah_translation">Перевод аята</string>
+
+    <string name="action_following_play_on">Последовательное воспроизведение вкл</string>
+    <string name="action_following_play_off">Последовательное воспроизведение выкл</string>
+
+    <string name="action_loop_on">Повтор включён</string>
+    <string name="action_loop_off">Повтор отключён</string>
+    <string name="action_copied">Скопировано в буфер</string>
 </resources>
