@@ -35,8 +35,23 @@ class BottomSheetSettings : BottomSheetDialogFragment(), RadioGroup.OnCheckedCha
         rootSettings.rbSepiaMode.isChecked = preferences.getBoolean("key_sepia_state", false)
         rootSettings.rbNightMode.isChecked = preferences.getBoolean("key_night_mode_state", false)
 
-        rootSettings.sbTextSizeAyahs.progress = preferences.getInt("key_text_arabic_size_progress", 2)
-        rootSettings.sbTextSizeTranslations.progress = preferences.getInt("key_text_translation_size_progress", 2)
+        when (resources.configuration.smallestScreenWidthDp) {
+
+            in 0..599 -> {
+                rootSettings.sbTextSizeAyahs.progress = preferences.getInt("key_text_arabic_size_progress", 2)
+                rootSettings.sbTextSizeTranslations.progress = preferences.getInt("key_text_translation_size_progress", 2)
+            }
+
+            600 -> {
+                rootSettings.sbTextSizeAyahs.progress = preferences.getInt("key_text_arabic_size_progress", 3)
+                rootSettings.sbTextSizeTranslations.progress = preferences.getInt("key_text_translation_size_progress", 3)
+            }
+
+            720 -> {
+                rootSettings.sbTextSizeAyahs.progress = preferences.getInt("key_text_arabic_size_progress", 4)
+                rootSettings.sbTextSizeTranslations.progress = preferences.getInt("key_text_translation_size_progress", 4)
+            }
+        }
 
         rootSettings.swAyahTranslation.isChecked = preferences.getBoolean("key_show_translation_text", true)
 

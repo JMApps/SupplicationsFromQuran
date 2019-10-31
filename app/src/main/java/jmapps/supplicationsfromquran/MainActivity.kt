@@ -57,15 +57,6 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
         sbAudioProgress.setOnSeekBarChangeListener(this)
         tbFollowing.setOnCheckedChangeListener(this)
         tbLoop.setOnCheckedChangeListener(this)
-
-        when (resources.configuration.smallestScreenWidthDp) {
-            600 -> {
-                Toast.makeText(this, "pook", Toast.LENGTH_LONG).show()
-            }
-
-            720 -> {
-            }
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
