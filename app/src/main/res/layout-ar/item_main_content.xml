@@ -46,7 +46,7 @@
                 android:id="@+id/btnPlayPause"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/ic_play_ar"
+                android:background="@drawable/ic_play_ar_rotate"
                 android:clickable="false" />
 
             <View
@@ -60,14 +60,14 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/state_copy" />
+                android:background="@drawable/state_copy_rotate" />
 
             <Button
                 android:id="@+id/btnShare"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/state_share" />
+                android:background="@drawable/state_share_rotate" />
 
             <TextView
                 android:id="@+id/tvContentName"
