@@ -6,6 +6,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
+import android.text.Html
 import androidx.core.net.toUri
 import jmapps.supplicationsfromquran.R
 
@@ -33,14 +34,14 @@ class MainPresenterImpl(private val mainView: MainContract.MainView?, private va
 
     override fun copyContent(contentArabic: String, contentTranslation: String) {
         myClipboard = context?.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
-        myClip = newPlainText("", "$contentArabic\n$contentTranslation")
+        myClip = newPlainText("", Html.fromHtml("$contentArabic\n$contentTranslation"))
         myClipboard?.setPrimaryClip(myClip!!)
     }
 
     override fun shareContent(contentArabic: String, contentTranslation: String) {
         val shareLink = Intent(Intent.ACTION_SEND)
         shareLink.type = "text/plain"
-        shareLink.putExtra(Intent.EXTRA_TEXT, "$contentArabic\n$contentTranslation")
+        shareLink.putExtra(Intent.EXTRA_TEXT, Html.fromHtml("$contentArabic\n$contentTranslation"))
         context?.startActivity(shareLink)
     }
 
