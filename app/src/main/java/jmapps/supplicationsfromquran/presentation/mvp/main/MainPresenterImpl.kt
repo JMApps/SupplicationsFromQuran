@@ -34,14 +34,14 @@ class MainPresenterImpl(private val mainView: MainContract.MainView?, private va
 
     override fun copyContent(contentArabic: String, contentTranslation: String) {
         myClipboard = context?.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
-        myClip = newPlainText("", Html.fromHtml("$contentArabic\n$contentTranslation"))
+        myClip = newPlainText("", Html.fromHtml("$contentArabic<p/>$contentTranslation"))
         myClipboard?.setPrimaryClip(myClip!!)
     }
 
     override fun shareContent(contentArabic: String, contentTranslation: String) {
         val shareLink = Intent(Intent.ACTION_SEND)
         shareLink.type = "text/plain"
-        shareLink.putExtra(Intent.EXTRA_TEXT, Html.fromHtml("$contentArabic\n$contentTranslation"))
+        shareLink.putExtra(Intent.EXTRA_TEXT, Html.fromHtml("$contentArabic<p/>$contentTranslation"))
         context?.startActivity(shareLink)
     }
 
