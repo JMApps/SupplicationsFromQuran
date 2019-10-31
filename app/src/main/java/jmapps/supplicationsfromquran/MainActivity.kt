@@ -100,6 +100,15 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
         rvMainContent.adapter = mainAdapter
     }
 
+    override fun copy(contentArabic: String, contentTranslation: String) {
+        mainPresenterImpl.copyContent(contentArabic, contentTranslation)
+        Toast.makeText(this, R.string.action_copied, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun share(contentArabic: String, contentTranslation: String) {
+        mainPresenterImpl.shareContent(contentArabic, contentTranslation)
+    }
+
     override fun getSettings() {
         val settings = BottomSheetSettings()
         settings.setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.BottomSheetStyleFull)
@@ -138,9 +147,9 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
                     if (tbFollowing.isChecked) {
                         tbFollowing.isChecked = false
                     }
-                    Toast.makeText(this, R.string.action_loop_on, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, R.string.action_loop_on, Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this, R.string.action_loop_off, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, R.string.action_loop_off, Toast.LENGTH_SHORT).show()
                 }
                 player?.isLooping = isChecked
             }
@@ -150,10 +159,10 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
                     if (tbLoop.isChecked) {
                         tbLoop.isChecked = false
                     }
-                    Toast.makeText(this, R.string.action_following_play_on, Toast.LENGTH_LONG)
+                    Toast.makeText(this, R.string.action_following_play_on, Toast.LENGTH_SHORT)
                         .show()
                 } else {
-                    Toast.makeText(this, R.string.action_following_play_off, Toast.LENGTH_LONG)
+                    Toast.makeText(this, R.string.action_following_play_off, Toast.LENGTH_SHORT)
                         .show()
                 }
             }
@@ -185,14 +194,6 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
         }
     }
 
-    override fun copy(contentArabic: String, contentTranslation: String) {
-        mainPresenterImpl.copyContent(contentArabic, contentTranslation)
-    }
-
-    override fun share(contentArabic: String, contentTranslation: String) {
-        mainPresenterImpl.shareContent(contentArabic, contentTranslation)
-    }
-
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
         if (fromUser) {
             player?.seekTo(progress * 1000)
@@ -207,8 +208,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
         clear()
         val resId: Int? = resources?.getIdentifier(
             mainContentList[index].strNameAudio,
-            "raw", "jmapps.supplicationsfromquran"
-        )
+            "raw", "jmapps.supplicationsfromquran")
         player = MediaPlayer.create(this, resId!!)
         mainAdapter.onItemSelected(index)
         currentAudioProgress()
