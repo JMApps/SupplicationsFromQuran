@@ -23,6 +23,10 @@ interface MainContract {
 
         fun initMainContent()
 
+        fun copyContent(contentArabic: String, contentTranslation: String)
+
+        fun shareContent(contentArabic: String, contentTranslation: String)
+
         fun getSettings()
 
         fun getAboutUs()

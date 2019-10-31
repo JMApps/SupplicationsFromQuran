@@ -41,8 +41,16 @@ class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         }
     }
 
-    fun findButtons(findButtons: MainAdapter.FindButtons) {
-        findButtons.findButtons(btnCopy, btnShare)
+    fun findCopy(eventCopy: MainAdapter.EventCopy, contentArabic: String, contentTranslation: String) {
+        btnCopy.setOnClickListener {
+            eventCopy.copy(contentArabic, contentTranslation)
+        }
+    }
+
+    fun findShare(eventShare: MainAdapter.EventShare, contentArabic: String, contentTranslation: String) {
+        btnShare.setOnClickListener {
+            eventShare.share(contentArabic, contentTranslation)
+        }
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {

@@ -10,7 +10,8 @@ import jmapps.supplicationsfromquran.R
 class MainAdapter(
     private val mainContentList: MutableList<MainModel>,
     private val playItem: PlayItem,
-    private val findButtons: FindButtons) :
+    private val eventCopy: EventCopy,
+    private val eventShare: EventShare) :
     RecyclerView.Adapter<MainViewHolder>() {
 
     private var currentIndex: Int = -1
@@ -19,8 +20,12 @@ class MainAdapter(
         fun playItem(position: Int)
     }
 
-    interface FindButtons {
-        fun findButtons(btnCopy: Button, btnShare: Button)
+    interface EventCopy {
+        fun copy(contentArabic: String, contentTranslation: String)
+    }
+
+    interface EventShare {
+        fun share(contentArabic: String, contentTranslation: String)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -35,7 +40,6 @@ class MainAdapter(
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val strContentArabic = mainContentList[position].strContentArabic
         val strContentTranslation = mainContentList[position].strContentTranslation
-        val strNameAudio = mainContentList[position].strNameAudio
         val strContentName = mainContentList[position].strContentName
 
         holder.tvContentArabic.text = strContentArabic
@@ -48,8 +52,9 @@ class MainAdapter(
             holder.btnPlayPause.setBackgroundResource(R.drawable.ic_pause)
         }
 
-        holder.findButtons(findButtons)
         holder.findPlayItem(playItem, position)
+        holder.findCopy(eventCopy, strContentArabic!!, strContentTranslation!!)
+        holder.findShare(eventShare, strContentArabic, strContentTranslation)
     }
 
     fun onItemSelected(currentIndex: Int) {

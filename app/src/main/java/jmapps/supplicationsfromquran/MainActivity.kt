@@ -7,7 +7,6 @@ import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.CompoundButton
 import android.widget.SeekBar
 import android.widget.Toast
@@ -25,9 +24,10 @@ import jmapps.supplicationsfromquran.presentation.ui.settings.BottomSheetSetting
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
-class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.FindButtons,
+class MainActivity : AppCompatActivity(), MainContract.MainView,
     View.OnClickListener, CompoundButton.OnCheckedChangeListener, MainAdapter.PlayItem,
-    MediaPlayer.OnCompletionListener, SeekBar.OnSeekBarChangeListener {
+    MediaPlayer.OnCompletionListener, SeekBar.OnSeekBarChangeListener, MainAdapter.EventCopy,
+    MainAdapter.EventShare {
 
     private var database: SQLiteDatabase? = null
 
@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
         mainContentList = DatabaseLists(this).getContentList
         val verticalLayout = LinearLayoutManager(this)
         rvMainContent.layoutManager = verticalLayout
-        mainAdapter = MainAdapter(mainContentList, this, this)
+        mainAdapter = MainAdapter(mainContentList, this, this, this)
         rvMainContent.adapter = mainAdapter
     }
 
@@ -110,11 +110,6 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
         val aboutUs = BottomSheetAboutUs()
         aboutUs.setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.BottomSheetStyleFull)
         aboutUs.show(supportFragmentManager, "about_us")
-    }
-
-    override fun findButtons(btnCopy: Button, btnShare: Button) {
-        btnCopy.setOnClickListener(this)
-        btnShare.setOnClickListener(this)
     }
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
@@ -168,14 +163,6 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
     override fun onClick(v: View?) {
         when (v?.id) {
 
-            R.id.btnCopy -> {
-                Toast.makeText(this, R.string.action_copied, Toast.LENGTH_LONG).show()
-            }
-
-            R.id.btnShare -> {
-
-            }
-
             R.id.btnPrevious -> {
                 if (trackIndex > 0) {
                     trackIndex--
@@ -196,6 +183,14 @@ class MainActivity : AppCompatActivity(), MainContract.MainView, MainAdapter.Fin
                 }
             }
         }
+    }
+
+    override fun copy(contentArabic: String, contentTranslation: String) {
+        mainPresenterImpl.copyContent(contentArabic, contentTranslation)
+    }
+
+    override fun share(contentArabic: String, contentTranslation: String) {
+        mainPresenterImpl.shareContent(contentArabic, contentTranslation)
     }
 
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
