@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Мольбы из Корана</string>
+    <string name="database_name">SFQ_ar</string>
+
+    <string name="action_settings">Настройки</string>
+    <string name="action_about_us">О нас</string>
+    <string name="action_rate_app">Оценить</string>
+    <string name="action_share_link">Поделиться</string>
+
+    <string name="action_text_mode">Режим</string>
+    <string name="text_normal_mode">Белый</string>
+    <string name="text_sepia_mode">Сепия</string>
+    <string name="text_night_mode">Ночной</string>
+
+    <string name="action_text_size_ayahs">Размер текста аятов</string>
+    <string name="action_text_size_translations">Размер текста перевода аятов</string>
+    <string name="action_showing_translations">Отображение аятов</string>
+    <string name="action_ayah_translation">Перевод аята</string>
+
+    <string name="action_following_play_on">Последовательное воспроизведение вкл</string>
+    <string name="action_following_play_off">Последовательное воспроизведение выкл</string>
+
+    <string name="action_loop_on">Повтор включён</string>
+    <string name="action_loop_off">Повтор отключён</string>
+
+    <string name="action_copied">Скопировано в буфер</string>
+
+    <string name="about_us_text" />
+</resources>
