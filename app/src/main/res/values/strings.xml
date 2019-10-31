@@ -11,13 +11,19 @@
     <string name="text_normal_mode">Белый</string>
     <string name="text_sepia_mode">Сепия</string>
     <string name="text_night_mode">Ночной</string>
-    <string name="action_font_mode">Шрифт</string>
-    <string name="text_font_one">Gilroy</string>
-    <string name="text_font_two">Serif</string>
-    <string name="text_font_three">Roboto</string>
+
     <string name="action_text_size_ayahs">Размер текста аятов</string>
     <string name="action_text_size_translations">Размер текста перевода аятов</string>
     <string name="action_showing_translations">Отображение аятов</string>
+    <string name="action_ayah_translation">Перевод аята</string>
+
+    <string name="action_following_play_on">Последовательное воспроизведение вкл</string>
+    <string name="action_following_play_off">Последовательное воспроизведение выкл</string>
+
+    <string name="action_loop_on">Повтор включён</string>
+    <string name="action_loop_off">Повтор отключён</string>
+
+    <string name="action_copied">Скопировано в буфер</string>
 
     <string name="about_us_text">
         <b>JMApps</b> - серия бесплатных и безрекламных андроид-приложений для мусульман.\n\n
@@ -32,12 +38,4 @@
         По всем вопросам, предложениям и скритикой можете писать нам на почту:
         JMAppsMuslim@gmail.com или в Telegram: t.me/dev_muslim
     </string>
-    <string name="action_ayah_translation">Перевод аята</string>
-
-    <string name="action_following_play_on">Последовательное воспроизведение вкл</string>
-    <string name="action_following_play_off">Последовательное воспроизведение выкл</string>
-
-    <string name="action_loop_on">Повтор включён</string>
-    <string name="action_loop_off">Повтор отключён</string>
-    <string name="action_copied">Скопировано в буфер</string>
 </resources>
