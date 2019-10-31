@@ -46,6 +46,8 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        LockOrientation(this).lock()
+
         mainPresenterImpl = MainPresenterImpl(this, this)
 
         openDatabase()
@@ -208,7 +210,8 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
         clear()
         val resId: Int? = resources?.getIdentifier(
             mainContentList[index].strNameAudio,
-            "raw", "jmapps.supplicationsfromquran")
+            "raw", "jmapps.supplicationsfromquran"
+        )
         player = MediaPlayer.create(this, resId!!)
         mainAdapter.onItemSelected(index)
         currentAudioProgress()
@@ -264,6 +267,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
     private fun clear() {
         player?.stop()
         player?.release()
+        player = null
     }
 
     private val MediaPlayer.seconds: Int
