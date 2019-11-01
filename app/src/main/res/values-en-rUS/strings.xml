@@ -14,8 +14,8 @@
 
     <string name="action_text_size_ayahs">Text arabic size</string>
     <string name="action_text_size_translations">Text translation size</string>
-    <string name="action_showing_translations">Showing ayahs</string>
-    <string name="action_ayah_translation">Translate ayah</string>
+    <string name="action_showing_translations">Show ayahs</string>
+    <string name="action_ayah_translation">Translation ayah</string>
 
     <string name="action_following_play_on">Sequential playback on</string>
     <string name="action_following_play_off">Sequential playback off</string>
