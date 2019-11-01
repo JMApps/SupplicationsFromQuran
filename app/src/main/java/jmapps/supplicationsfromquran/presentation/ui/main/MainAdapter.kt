@@ -2,7 +2,6 @@ package jmapps.supplicationsfromquran.presentation.ui.main
 
 import android.text.Html
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import jmapps.supplicationsfromquran.R
@@ -45,14 +44,10 @@ class MainAdapter(
         val strContentName = mainContentList[position].strContentName
 
         holder.tvContentArabic.text = strContentArabic
-        holder.tvContentName.text = strContentName
-
         if (!strContentTranslation.isNullOrEmpty()) {
-            holder.tvContentTranslation.visibility = View.VISIBLE
             holder.tvContentTranslation.text = Html.fromHtml(strContentTranslation)
-        } else {
-            holder.tvContentTranslation.visibility = View.GONE
         }
+        holder.tvContentName.text = strContentName
 
         val language = Locale.getDefault().language
         if (currentIndex == position) {
