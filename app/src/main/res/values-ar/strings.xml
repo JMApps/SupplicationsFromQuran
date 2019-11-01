@@ -2,26 +2,26 @@
     <string name="app_name">دعاء من القرآن</string>
     <string name="database_name">SFQ_ar</string>
 
-    <string name="action_settings">الإعدادات</string>
+    <string name="action_settings">إعدادات</string>
     <string name="action_about_us" />
-    <string name="action_rate_app">معدل</string>
+    <string name="action_rate_app">تقييم</string>
     <string name="action_share_link">شارك</string>
 
-    <string name="action_text_mode">الوضع</string>
+    <string name="action_text_mode">وضع</string>
     <string name="text_normal_mode">أبيض</string>
     <string name="text_sepia_mode">بني داكن</string>
-    <string name="text_night_mode">ليل</string>
+    <string name="text_night_mode">ليلي</string>
 
-    <string name="action_text_size_ayahs">حجم النص العربي</string>
+    <string name="action_text_size_ayahs">حجم نص الآية</string>
     <string name="action_text_size_translations" />
     <string name="action_showing_translations" />
     <string name="action_ayah_translation" />
 
-    <string name="action_following_play_on">تشغيل متسلسل على</string>
-    <string name="action_following_play_off">تشغيل متسلسل قبالة</string>
+    <string name="action_following_play_on">تشغيل استماع متواصل</string>
+    <string name="action_following_play_off">تعطيل استماع متواصل</string>
 
-    <string name="action_loop_on">حلقة على</string>
-    <string name="action_loop_off">حلقة قبالة</string>
+    <string name="action_loop_on">تمكين تكرار</string>
+    <string name="action_loop_off">تعطيل تكرار</string>
 
     <string name="action_copied">نسخ إلى الحافظة</string>
 
