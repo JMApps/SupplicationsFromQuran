@@ -26,4 +26,10 @@
     <string name="action_copied">Copied to clipboard</string>
 
     <string name="about_us_text" />
+
+    <string name="action_bookmark">Bookmarks</string>
+    <string name="action_bookmark_added">Added to bookmark</string>
+    <string name="action_bookmark_removed">Removed from bookmark</string>
+    <string name="action_bookmark_is_empty">Add favorite dua</string>
+    <string name="action_error">Error:</string>
 </resources>

@@ -26,4 +26,10 @@
     <string name="action_copied">نسخ إلى الحافظة</string>
 
     <string name="about_us_text" />
+
+    <string name="action_bookmark">إرسال</string>
+    <string name="action_bookmark_added">أضيف إلى المرجعية</string>
+    <string name="action_bookmark_removed">تمت إزالته من الإشارة المرجعية</string>
+    <string name="action_bookmark_is_empty">أضف الدعاء المفضل</string>
+    <string name="action_error">خطأ:</string>
 </resources>

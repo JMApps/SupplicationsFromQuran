@@ -38,4 +38,10 @@
         По всем вопросам, предложениям и скритикой можете писать нам на почту:
         JMAppsMuslim@gmail.com или в Telegram: t.me/dev_muslim
     </string>
+
+    <string name="action_bookmark">Избранное</string>
+    <string name="action_bookmark_added">Добавлено в избранное</string>
+    <string name="action_bookmark_removed">Удалено из избранного</string>
+    <string name="action_bookmark_is_empty">Добавьте избранные дуа</string>
+    <string name="action_error">Ошибка:</string>
 </resources>
