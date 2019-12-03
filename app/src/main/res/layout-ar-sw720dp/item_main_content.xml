@@ -57,6 +57,16 @@
                 android:layout_weight="1"
                 android:focusable="true" />
 
+            <ToggleButton
+                android:id="@+id/tbBookmark"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/state_bookmark"
+                android:text=""
+                android:textOff=""
+                android:textOn="" />
+
             <Button
                 android:id="@+id/btnCopy"
                 android:layout_width="35dp"

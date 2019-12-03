@@ -8,21 +8,20 @@
     app:cardElevation="3dp">
 
     <LinearLayout
-        android:id="@+id/llContentItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:selectableItemBackground"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvContentArabic"
+            android:id="@+id/tvBookmarkContentArabic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/quran_font"
             android:padding="16dp" />
 
         <TextView
-            android:id="@+id/tvContentTranslation"
+            android:id="@+id/tvBookmarkContentTranslation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
@@ -56,16 +55,6 @@
                 android:layout_weight="1"
                 android:focusable="true" />
 
-            <ToggleButton
-                android:id="@+id/tbBookmark"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/state_bookmark"
-                android:text=""
-                android:textOff=""
-                android:textOn="" />
-
             <Button
                 android:id="@+id/btnCopy"
                 android:layout_width="35dp"
@@ -90,7 +79,7 @@
                 android:paddingRight="8dp"
                 android:paddingBottom="5dp"
                 android:textColor="@color/White"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
