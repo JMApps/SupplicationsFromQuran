@@ -9,6 +9,8 @@ class SplashActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        LockOrientation(this).lock()
+
         val toMainActivity = Intent(this, MainActivity::class.java)
         startActivity(toMainActivity)
         finish()
