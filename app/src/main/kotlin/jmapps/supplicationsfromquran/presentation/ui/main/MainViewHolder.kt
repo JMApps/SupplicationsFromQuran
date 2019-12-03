@@ -4,12 +4,13 @@ import android.content.SharedPreferences
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.ToggleButton
 import androidx.cardview.widget.CardView
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import jmapps.supplicationsfromquran.R
-import jmapps.supplicationsfromquran.presentation.mvp.setting.SettingsContract
-import jmapps.supplicationsfromquran.presentation.mvp.setting.SettingsPresenterImpl
+import jmapps.supplicationsfromquran.presentation.mvp.settings.SettingsContract
+import jmapps.supplicationsfromquran.presentation.mvp.settings.SettingsPresenterImpl
 
 class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
     SettingsContract.SettingsView, SharedPreferences.OnSharedPreferenceChangeListener {
@@ -17,9 +18,10 @@ class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
     private val cvContentItem: CardView = itemView.findViewById(R.id.cvContentItem)
     val tvContentArabic: TextView = itemView.findViewById(R.id.tvContentArabic)
     val tvContentTranslation: TextView = itemView.findViewById(R.id.tvContentTranslation)
-    val tvContentName: TextView = itemView.findViewById(R.id.tvContentName)
+    val tvNumberSupplication: TextView = itemView.findViewById(R.id.tvNumberSupplication)
 
     val btnPlayPause: Button = itemView.findViewById(R.id.btnPlayPause)
+    val tbBookmarks: ToggleButton = itemView.findViewById(R.id.tbBookmark)
     private val btnCopy: Button = itemView.findViewById(R.id.btnCopy)
     private val btnShare: Button = itemView.findViewById(R.id.btnShare)
 
@@ -38,6 +40,12 @@ class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
     fun findPlayItem(playItem: MainAdapter.PlayItem, position: Int) {
         btnPlayPause.setOnClickListener {
             playItem.playItem(position)
+        }
+    }
+
+    fun findBookmark(eventBookmark: MainAdapter.EventBookmark, position: Int) {
+        tbBookmarks.setOnCheckedChangeListener { _, isChecked ->
+            eventBookmark.bookmark(isChecked, position)
         }
     }
 
