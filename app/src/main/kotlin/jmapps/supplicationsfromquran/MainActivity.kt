@@ -1,5 +1,7 @@
 package jmapps.supplicationsfromquran
 
+import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.database.sqlite.SQLiteDatabase
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -11,13 +13,18 @@ import android.widget.CompoundButton
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment.STYLE_NORMAL
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import jmapps.supplicationsfromquran.data.database.DatabaseLists
 import jmapps.supplicationsfromquran.data.database.DatabaseOpenHelper
+import jmapps.supplicationsfromquran.presentation.mvp.bookmarks.BookmarkContract
+import jmapps.supplicationsfromquran.presentation.mvp.bookmarks.BookmarkPresenter
 import jmapps.supplicationsfromquran.presentation.mvp.main.MainContract
 import jmapps.supplicationsfromquran.presentation.mvp.main.MainPresenterImpl
 import jmapps.supplicationsfromquran.presentation.ui.about.BottomSheetAboutUs
+import jmapps.supplicationsfromquran.presentation.ui.bookmarks.BookmarkBottomSheet
 import jmapps.supplicationsfromquran.presentation.ui.main.MainAdapter
 import jmapps.supplicationsfromquran.presentation.ui.main.MainModel
 import jmapps.supplicationsfromquran.presentation.ui.settings.BottomSheetSettings
@@ -27,20 +34,25 @@ import kotlinx.android.synthetic.main.content_main.*
 class MainActivity : AppCompatActivity(), MainContract.MainView,
     View.OnClickListener, CompoundButton.OnCheckedChangeListener, MainAdapter.PlayItem,
     MediaPlayer.OnCompletionListener, SeekBar.OnSeekBarChangeListener, MainAdapter.EventCopy,
-    MainAdapter.EventShare {
+    MainAdapter.EventShare, BookmarkContract.ChapterView, MainAdapter.EventBookmark {
 
     private var database: SQLiteDatabase? = null
+
+    private lateinit var preferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
 
     private lateinit var mainContentList: MutableList<MainModel>
     private lateinit var mainAdapter: MainAdapter
 
     private lateinit var mainPresenterImpl: MainPresenterImpl
+    private lateinit var bookmarkPresenter: BookmarkPresenter
 
     private var player: MediaPlayer? = null
     private lateinit var runnable: Runnable
     private var handler: Handler = Handler()
     private var trackIndex: Int = 0
 
+    @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -48,9 +60,14 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
 
         LockOrientation(this).lock()
 
-        mainPresenterImpl = MainPresenterImpl(this, this)
+        preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        editor = preferences.edit()
 
         openDatabase()
+
+        mainPresenterImpl = MainPresenterImpl(this, this)
+        bookmarkPresenter = BookmarkPresenter(this, database!!)
+
         initMainContent()
 
         btnPrevious.setOnClickListener(this)
@@ -59,6 +76,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
         sbAudioProgress.setOnSeekBarChangeListener(this)
         tbFollowing.setOnCheckedChangeListener(this)
         tbLoop.setOnCheckedChangeListener(this)
+        btnBookmarks.setOnClickListener(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -96,10 +114,15 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
 
     override fun initMainContent() {
         mainContentList = DatabaseLists(this).getContentList
-        val verticalLayout = LinearLayoutManager(this)
+        val verticalLayout = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvMainContent.layoutManager = verticalLayout
-        mainAdapter = MainAdapter(mainContentList, this, this, this)
+        mainAdapter = MainAdapter(
+            this, preferences, mainContentList, this, this, this, this)
         rvMainContent.adapter = mainAdapter
+    }
+
+    override fun bookmark(state: Boolean, position: Int) {
+        bookmarkPresenter.getFavorite(state, position)
     }
 
     override fun copy(contentArabic: String, contentTranslation: String) {
@@ -109,6 +132,22 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
 
     override fun share(contentArabic: String, contentTranslation: String) {
         mainPresenterImpl.shareContent(contentArabic, contentTranslation)
+    }
+
+    override fun saveFavorite(keyFavorite: String, state: Boolean) {
+        editor.putBoolean(keyFavorite, state).apply()
+    }
+
+    override fun saveMessage(state: Boolean) {
+        if (state) {
+            Toast.makeText(this, getString(R.string.action_bookmark_added), Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, getString(R.string.action_bookmark_removed), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun showException(e: Exception) {
+        Toast.makeText(this, "${getString(R.string.action_error)} $e", Toast.LENGTH_SHORT).show()
     }
 
     override fun getSettings() {
@@ -138,9 +177,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
                     }
                 } else {
                     mainAdapter.onItemSelected(-1)
-                    if (player?.isPlaying!!) {
-                        player?.pause()
-                    }
+                    player?.pause()
                 }
             }
 
@@ -193,6 +230,17 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
                     rvMainContent.smoothScrollToPosition(trackIndex)
                 }
             }
+
+            R.id.btnBookmarks -> {
+                val bookmarkBottomSheet = BookmarkBottomSheet()
+                bookmarkBottomSheet.setStyle(STYLE_NORMAL, R.style.BottomSheetStyleFull)
+                bookmarkBottomSheet.show(supportFragmentManager, "bookmarks")
+                clear()
+                mainAdapter.onItemSelected(- 1)
+                tbPlayPause.isChecked = false
+                tbLoop.isChecked = false
+                tbFollowing.isChecked = false
+            }
         }
     }
 
@@ -220,7 +268,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
 
     override fun playItem(position: Int) {
         trackIndex = position
-        tbPlayPause.isChecked = position != -1
+        tbPlayPause.isChecked = position != - 1
         initPlayer(trackIndex)
         player?.start()
     }
@@ -239,7 +287,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
                 } else {
                     trackIndex = 0
                     rvMainContent.smoothScrollToPosition(trackIndex)
-                    mainAdapter.onItemSelected(-1)
+                    mainAdapter.onItemSelected(- 1)
                     tbPlayPause.isChecked = false
                     tbFollowing.isChecked = false
                     handler.removeCallbacks(runnable)
@@ -248,7 +296,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
                 }
             } else {
                 tbPlayPause.isChecked = false
-                mainAdapter.onItemSelected(-1)
+                mainAdapter.onItemSelected(- 1)
                 handler.removeCallbacks(runnable)
                 sbAudioProgress?.progress = 0
             }
@@ -265,9 +313,13 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
     }
 
     private fun clear() {
-        player?.stop()
-        player?.release()
-        player = null
+        if (player != null) {
+            handler.removeCallbacks(runnable)
+            sbAudioProgress?.progress = 0
+            player?.stop()
+            player?.release()
+            player = null
+        }
     }
 
     private val MediaPlayer.seconds: Int
