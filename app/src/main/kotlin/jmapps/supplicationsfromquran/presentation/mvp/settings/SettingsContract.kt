@@ -1,4 +1,4 @@
-package jmapps.supplicationsfromquran.presentation.mvp.setting
+package jmapps.supplicationsfromquran.presentation.mvp.settings
 
 interface SettingsContract {
 
