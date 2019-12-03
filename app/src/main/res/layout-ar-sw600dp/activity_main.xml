@@ -111,8 +111,17 @@
                 android:textOff=""
                 android:textOn=""
                 app:layout_constraintBottom_toBottomOf="@+id/tbLoop"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnBookmarks"
                 app:layout_constraintTop_toTopOf="@+id/tbLoop" />
+
+            <Button
+                android:id="@+id/btnBookmarks"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/state_bookmark_button"
+                app:layout_constraintBottom_toBottomOf="@+id/tbFollowing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tbFollowing" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.bottomappbar.BottomAppBar>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

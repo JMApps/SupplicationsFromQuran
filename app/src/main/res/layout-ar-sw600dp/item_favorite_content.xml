@@ -14,14 +14,14 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvContentArabic"
+            android:id="@+id/tvBookmarkContentArabic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/quran_font"
             android:padding="16dp" />
 
         <TextView
-            android:id="@+id/tvContentTranslation"
+            android:id="@+id/tvBookmarkContentTranslation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
@@ -47,7 +47,7 @@
                 android:id="@+id/btnPlayPause"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:background="@drawable/ic_play_ar"
+                android:background="@drawable/ic_play_ar_rotate"
                 android:clickable="false" />
 
             <View
@@ -56,32 +56,22 @@
                 android:layout_weight="1"
                 android:focusable="true" />
 
-            <ToggleButton
-                android:id="@+id/tbBookmark"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/state_bookmark"
-                android:text=""
-                android:textOff=""
-                android:textOn="" />
-
             <Button
                 android:id="@+id/btnCopy"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/state_copy" />
+                android:background="@drawable/state_copy_rotate" />
 
             <Button
                 android:id="@+id/btnShare"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/state_share" />
+                android:background="@drawable/state_share_rotate" />
 
             <TextView
-                android:id="@+id/tvContentName"
+                android:id="@+id/tvNumberSupplication"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/circle_content_name"
@@ -90,7 +80,7 @@
                 android:paddingRight="8dp"
                 android:paddingBottom="5dp"
                 android:textColor="@color/White"
-                android:textSize="17sp" />
+                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
