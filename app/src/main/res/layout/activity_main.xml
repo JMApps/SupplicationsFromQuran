@@ -29,9 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:backgroundTint="@color/colorPrimary"
-        app:fabAlignmentMode="center"
         app:hideOnScroll="true"
-        app:layout_anchorGravity="center"
         app:layout_scrollFlags="scroll|enterAlways">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -111,8 +109,17 @@
                 android:textOff=""
                 android:textOn=""
                 app:layout_constraintBottom_toBottomOf="@+id/tbLoop"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnBookmarks"
                 app:layout_constraintTop_toTopOf="@+id/tbLoop" />
+
+            <Button
+                android:id="@+id/btnBookmarks"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/state_bookmark_button"
+                app:layout_constraintBottom_toBottomOf="@+id/tbFollowing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tbFollowing" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.bottomappbar.BottomAppBar>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
