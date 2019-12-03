@@ -36,7 +36,7 @@ class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
     }
 
     fun findPlayItem(playItem: MainAdapter.PlayItem, position: Int) {
-        itemView.setOnClickListener {
+        btnPlayPause.setOnClickListener {
             playItem.playItem(position)
         }
     }
