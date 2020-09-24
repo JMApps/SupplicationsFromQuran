@@ -68,7 +68,7 @@ class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
     }
 
     override fun colorMode(backgroundColor: Int, textArabicColor: Int, textTranslationColor: Int) {
-        cvContentItem.setBackgroundColor(backgroundColor)
+        cvContentItem.setCardBackgroundColor(backgroundColor)
         tvContentArabic.setTextColor(textArabicColor)
         tvContentTranslation.setTextColor(textTranslationColor)
     }
