@@ -61,15 +61,16 @@ class BookmarkBottomSheet : BottomSheetDialogFragment(), MainContract.MainView,
         bookmarkContentList = DatabaseLists(context).getBookmarkList
         val verticalLayout = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rootBookmark.rvBookmarkContent.layoutManager = verticalLayout
-        bookmarkAdapter = BookmarkAdapter(
-            context!!, preferences, bookmarkContentList, this, this, this)
+        bookmarkAdapter = BookmarkAdapter(context!!, preferences, bookmarkContentList, this, this, this)
         rootBookmark.rvBookmarkContent.adapter = bookmarkAdapter
 
         if (bookmarkAdapter.itemCount <= 0) {
-            rootBookmark.bookmarkIsEmpty.visibility = View.VISIBLE
+            rootBookmark.ivBookmarkDescription?.visibility = View.VISIBLE
+            rootBookmark.tvAddBookmarkDescription?.visibility = View.VISIBLE
             rootBookmark.rvBookmarkContent.visibility = View.GONE
         } else {
-            rootBookmark.bookmarkIsEmpty.visibility = View.GONE
+            rootBookmark.ivBookmarkDescription?.visibility = View.GONE
+            rootBookmark.tvAddBookmarkDescription?.visibility = View.GONE
             rootBookmark.rvBookmarkContent.visibility = View.VISIBLE
         }
     }
