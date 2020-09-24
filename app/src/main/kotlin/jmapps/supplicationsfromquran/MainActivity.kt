@@ -210,11 +210,9 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
                     if (tbLoop.isChecked) {
                         tbLoop.isChecked = false
                     }
-                    Toast.makeText(this, R.string.action_following_play_on, Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(this, R.string.action_following_play_on, Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this, R.string.action_following_play_off, Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(this, R.string.action_following_play_off, Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -248,7 +246,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
                 bookmarkBottomSheet.setStyle(STYLE_NORMAL, R.style.BottomSheetStyleFull)
                 bookmarkBottomSheet.show(supportFragmentManager, "bookmarks")
                 clear()
-                mainAdapter.onItemSelected(- 1)
+                mainAdapter.onItemSelected(-1)
                 tbPlayPause.isChecked = false
                 tbLoop.isChecked = false
                 tbFollowing.isChecked = false
@@ -280,7 +278,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
 
     override fun playItem(position: Int) {
         trackIndex = position
-        tbPlayPause.isChecked = position != - 1
+        tbPlayPause.isChecked = position != -1
         initPlayer(trackIndex)
         player?.start()
     }
@@ -299,7 +297,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
                 } else {
                     trackIndex = 0
                     rvMainContent.smoothScrollToPosition(trackIndex)
-                    mainAdapter.onItemSelected(- 1)
+                    mainAdapter.onItemSelected(-1)
                     tbPlayPause.isChecked = false
                     tbFollowing.isChecked = false
                     handler.removeCallbacks(runnable)
@@ -308,7 +306,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
                 }
             } else {
                 tbPlayPause.isChecked = false
-                mainAdapter.onItemSelected(- 1)
+                mainAdapter.onItemSelected(-1)
                 handler.removeCallbacks(runnable)
                 sbAudioProgress?.progress = 0
             }
