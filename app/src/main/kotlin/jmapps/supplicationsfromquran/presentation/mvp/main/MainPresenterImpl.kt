@@ -6,16 +6,17 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
+import android.net.Uri
 import android.text.Html
-import androidx.core.net.toUri
 import jmapps.supplicationsfromquran.R
 
-class MainPresenterImpl(private val mainView: MainContract.MainView?, private val context: Context?)
-    : MainContract.MainPresenter {
+class MainPresenterImpl(
+    private val mainView: MainContract.MainView?,
+    private val context: Context?) : MainContract.MainPresenter {
 
     private val linkDescription = context?.getString(R.string.app_name)
-    private val linkApp =
-        "https://play.google.com/store/apps/details?id=jmapps.supplicationsfromquran"
+    private val downloadLink = "https://drive.google.com/uc?export=download&id=1zZg1yIMe7bKPrkPRndeeyGxEO0r0r0XL"
+    private val linkApp = "https://play.google.com/store/apps/details?id=jmapps.supplicationsfromquran"
 
     private var myClipboard: ClipboardManager? = null
     private var myClip: ClipData? = null
@@ -49,13 +50,19 @@ class MainPresenterImpl(private val mainView: MainContract.MainView?, private va
         mainView?.getSettings()
     }
 
+    override fun getDownloadAudios() {
+        val downloadAudios = Intent(Intent.ACTION_VIEW)
+        downloadAudios.data = Uri.parse(downloadLink)
+        context?.startActivity(downloadAudios)
+    }
+
     override fun getAboutUs() {
         mainView?.getAboutUs()
     }
 
     override fun rateApp() {
         val rate = Intent(Intent.ACTION_VIEW)
-        rate.data = linkApp.toUri()
+        rate.data = Uri.parse(linkApp)
         context?.startActivity(rate)
     }
 

@@ -29,6 +29,8 @@ interface MainContract {
 
         fun getSettings()
 
+        fun getDownloadAudios()
+
         fun getAboutUs()
 
         fun rateApp()
