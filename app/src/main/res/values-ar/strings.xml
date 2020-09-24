@@ -3,6 +3,7 @@
     <string name="database_name">SFQ_ar</string>
 
     <string name="action_settings">إعدادات</string>
+    <string name="action_download_audios">تنزيل الصوتيات</string>
     <string name="action_about_us" />
     <string name="action_rate_app">تقييم</string>
     <string name="action_share_link">شارك</string>

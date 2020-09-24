@@ -3,6 +3,7 @@
     <string name="database_name">SFQ_en</string>
 
     <string name="action_settings">Settings</string>
+    <string name="action_download_audios">Download audios</string>
     <string name="action_about_us" />
     <string name="action_rate_app">Rate</string>
     <string name="action_share_link">Share</string>
