@@ -58,9 +58,9 @@ class BookmarkAdapter(
         val language = Locale.getDefault().language
         if (currentIndex == position) {
             if (language == "ar") {
-                holder.btnPlayPause.setBackgroundResource(R.drawable.ic_play_ar_rotate)
+                holder.btnPlayPause.setBackgroundResource(R.drawable.ic_play_accent_ar_rotate)
             } else {
-                holder.btnPlayPause.setBackgroundResource(R.drawable.ic_play)
+                holder.btnPlayPause.setBackgroundResource(R.drawable.ic_play_accent)
                 holder.tvBookmarkContentArabic.setTextColor(Color.argb(255, 230, 74, 25))
             }
         } else {
