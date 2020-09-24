@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvSettingDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvTextModeDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTextModeDescription">
 
-        <RadioButton
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rbWhiteMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
             android:paddingRight="8dp"
             android:text="@string/text_normal_mode" />
 
-        <RadioButton
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rbSepiaMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
             android:paddingRight="8dp"
             android:text="@string/text_sepia_mode" />
 
-        <RadioButton
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rbNightMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
             android:text="@string/text_night_mode" />
     </RadioGroup>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvTextSizeAyahsDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rgModeBackground" />
 
-    <SeekBar
+    <androidx.appcompat.widget.AppCompatSeekBar
         android:id="@+id/sbTextSizeAyahs"
         style="@style/Widget.AppCompat.SeekBar.Discrete"
         android:layout_width="match_parent"
@@ -101,7 +101,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTextSizeAyahsDescription" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvTextSizeTranslationsDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sbTextSizeAyahs" />
 
-    <SeekBar
+    <androidx.appcompat.widget.AppCompatSeekBar
         android:id="@+id/sbTextSizeTranslations"
         style="@style/Widget.AppCompat.SeekBar.Discrete"
         android:layout_width="match_parent"
@@ -130,7 +130,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTextSizeTranslationsDescription" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -145,7 +145,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sbTextSizeTranslations" />
 
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/swAyahTranslation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -158,5 +158,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

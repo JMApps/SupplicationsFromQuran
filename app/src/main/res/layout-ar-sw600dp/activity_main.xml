@@ -39,18 +39,18 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnPrevious"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:background="@drawable/state_previous_rotate"
                 android:padding="4dp"
                 app:layout_constraintBottom_toBottomOf="@+id/sbAudioProgress"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/sbAudioProgress" />
 
-            <ToggleButton
+            <androidx.appcompat.widget.AppCompatToggleButton
                 android:id="@+id/tbPlayPause"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -64,7 +64,7 @@
                 app:layout_constraintStart_toEndOf="@+id/btnPrevious"
                 app:layout_constraintTop_toTopOf="@+id/sbAudioProgress" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnNext"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
@@ -75,7 +75,7 @@
                 app:layout_constraintStart_toEndOf="@+id/tbPlayPause"
                 app:layout_constraintTop_toTopOf="@+id/sbAudioProgress" />
 
-            <SeekBar
+            <androidx.appcompat.widget.AppCompatSeekBar
                 android:id="@+id/sbAudioProgress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -88,8 +88,7 @@
                 app:layout_constraintStart_toEndOf="@+id/btnNext"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-            <ToggleButton
+            <androidx.appcompat.widget.AppCompatToggleButton
                 android:id="@+id/tbLoop"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
@@ -103,7 +102,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/tbFollowing"
                 app:layout_constraintTop_toTopOf="@+id/sbAudioProgress" />
 
-            <ToggleButton
+            <androidx.appcompat.widget.AppCompatToggleButton
                 android:id="@+id/tbFollowing"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
@@ -117,11 +116,11 @@
                 app:layout_constraintEnd_toStartOf="@+id/btnBookmarks"
                 app:layout_constraintTop_toTopOf="@+id/sbAudioProgress" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnBookmarks"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/state_bookmark_button"
                 app:layout_constraintBottom_toBottomOf="@+id/sbAudioProgress"
                 app:layout_constraintEnd_toEndOf="parent"

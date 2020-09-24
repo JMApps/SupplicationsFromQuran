@@ -6,7 +6,7 @@
     android:minHeight="1000dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvBookmarkDescriptions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivBookmarkDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvBookmarkDescriptions"
         app:layout_constraintVertical_bias="0.32999998" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvAddBookmarkDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
