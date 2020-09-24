@@ -47,7 +47,7 @@
                 android:id="@+id/btnPlayPause"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:background="@drawable/ic_play_ar_rotate"
+                android:background="@drawable/ic_play_accent_ar_rotate"
                 android:clickable="false" />
 
             <View
