@@ -42,12 +42,12 @@ class BottomSheetSettings : BottomSheetDialogFragment(), RadioGroup.OnCheckedCha
                 rootSettings.sbTextSizeTranslations.progress = preferences.getInt("key_text_translation_size_progress", 2)
             }
 
-            600 -> {
+            in 600..719 -> {
                 rootSettings.sbTextSizeAyahs.progress = preferences.getInt("key_text_arabic_size_progress", 3)
                 rootSettings.sbTextSizeTranslations.progress = preferences.getInt("key_text_translation_size_progress", 3)
             }
 
-            720 -> {
+            in 720..1080 -> {
                 rootSettings.sbTextSizeAyahs.progress = preferences.getInt("key_text_arabic_size_progress", 4)
                 rootSettings.sbTextSizeTranslations.progress = preferences.getInt("key_text_translation_size_progress", 4)
             }
@@ -76,7 +76,6 @@ class BottomSheetSettings : BottomSheetDialogFragment(), RadioGroup.OnCheckedCha
 
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
         when (seekBar?.id) {
-
             R.id.sbTextSizeAyahs -> editor.putInt("key_text_arabic_size_progress", progress).apply()
 
             R.id.sbTextSizeTranslations -> editor.putInt("key_text_translation_size_progress", progress).apply()

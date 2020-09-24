@@ -18,7 +18,8 @@ class MainAdapter(
     private val playItem: PlayItem,
     private val eventBookmark: EventBookmark,
     private val eventCopy: EventCopy,
-    private val eventShare: EventShare) :
+    private val eventShare: EventShare
+) :
     RecyclerView.Adapter<MainViewHolder>() {
 
     private val inflater = LayoutInflater.from(context)
@@ -54,32 +55,35 @@ class MainAdapter(
         val strNumberSupplication = mainContentList[position].strNumberSupplication
 
         holder.tvContentArabic.text = strContentArabic
+
         if (!strContentTranslation.isNullOrEmpty()) {
             holder.tvContentTranslation.text = Html.fromHtml(strContentTranslation)
         } else {
             holder.tvContentTranslation.visibility = View.GONE
         }
+
         holder.tvNumberSupplication.text = strNumberSupplication
 
         val language = Locale.getDefault().language
+
         if (currentIndex == position) {
             if (language == "ar") {
-                holder.btnPlayPause.setBackgroundResource(R.drawable.ic_play_ar_rotate)
+                holder.btnPlayPause.setBackgroundResource(R.drawable.ic_play_accent_ar_rotate)
                 holder.tvContentArabic.setTextColor(Color.argb(255, 230, 74, 25))
             } else {
-                holder.btnPlayPause.setBackgroundResource(R.drawable.ic_play)
+                holder.btnPlayPause.setBackgroundResource(R.drawable.ic_play_accent)
                 holder.tvContentArabic.setTextColor(Color.argb(255, 230, 74, 25))
             }
         } else {
             if (language == "ar") {
-                holder.btnPlayPause.setBackgroundResource(R.drawable.ic_pause_ar_rotate)
+                holder.btnPlayPause.setBackgroundResource(R.drawable.ic_play_grey_ar_rotate)
                 if (preferences.getBoolean("key_night_mode_state", false)) {
                     holder.tvContentArabic.setTextColor(Color.argb(255, 184, 184, 184))
                 } else {
                     holder.tvContentArabic.setTextColor(Color.argb(255, 87, 87, 87))
                 }
             } else {
-                holder.btnPlayPause.setBackgroundResource(R.drawable.ic_pause)
+                holder.btnPlayPause.setBackgroundResource(R.drawable.ic_play_grey)
                 if (preferences.getBoolean("key_night_mode_state", false)) {
                     holder.tvContentArabic.setTextColor(Color.argb(255, 184, 184, 184))
                 } else {
@@ -89,7 +93,8 @@ class MainAdapter(
         }
 
         holder.tbBookmarks.setOnCheckedChangeListener(null)
-        holder.tbBookmarks.isChecked = preferences.getBoolean("key_bookmark_supplication_${position + 1}", false)
+        holder.tbBookmarks.isChecked =
+            preferences.getBoolean("key_bookmark_supplication_${position + 1}", false)
 
         holder.findPlayItem(playItem, position)
         holder.findBookmark(eventBookmark, position + 1)
