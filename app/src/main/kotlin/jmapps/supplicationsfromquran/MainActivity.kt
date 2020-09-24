@@ -23,6 +23,8 @@ import jmapps.supplicationsfromquran.presentation.mvp.bookmarks.BookmarkContract
 import jmapps.supplicationsfromquran.presentation.mvp.bookmarks.BookmarkPresenter
 import jmapps.supplicationsfromquran.presentation.mvp.main.MainContract
 import jmapps.supplicationsfromquran.presentation.mvp.main.MainPresenterImpl
+import jmapps.supplicationsfromquran.presentation.mvp.settings.SettingsContract
+import jmapps.supplicationsfromquran.presentation.mvp.settings.SettingsPresenterImpl
 import jmapps.supplicationsfromquran.presentation.ui.about.BottomSheetAboutUs
 import jmapps.supplicationsfromquran.presentation.ui.bookmarks.BookmarkBottomSheet
 import jmapps.supplicationsfromquran.presentation.ui.main.MainAdapter
@@ -34,7 +36,8 @@ import kotlinx.android.synthetic.main.content_main.*
 class MainActivity : AppCompatActivity(), MainContract.MainView,
     View.OnClickListener, CompoundButton.OnCheckedChangeListener, MainAdapter.PlayItem,
     MediaPlayer.OnCompletionListener, SeekBar.OnSeekBarChangeListener, MainAdapter.EventCopy,
-    MainAdapter.EventShare, BookmarkContract.ChapterView, MainAdapter.EventBookmark {
+    MainAdapter.EventShare, BookmarkContract.ChapterView, MainAdapter.EventBookmark,
+    SharedPreferences.OnSharedPreferenceChangeListener, SettingsContract.SettingsView {
 
     private var database: SQLiteDatabase? = null
 
@@ -62,6 +65,8 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
         editor = preferences.edit()
+        PreferenceManager.getDefaultSharedPreferences(this)
+            .registerOnSharedPreferenceChangeListener(this)
 
         openDatabase()
 
@@ -77,6 +82,8 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
         tbFollowing.setOnCheckedChangeListener(this)
         tbLoop.setOnCheckedChangeListener(this)
         btnBookmarks.setOnClickListener(this)
+
+        recyclerViewBackgroundColor()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -89,6 +96,8 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
 
             R.id.action_settings -> mainPresenterImpl.getSettings()
 
+            R.id.action_download_audios -> mainPresenterImpl.getDownloadAudios()
+
             R.id.action_about_us -> mainPresenterImpl.getAboutUs()
 
             R.id.action_rate -> mainPresenterImpl.rateApp()
@@ -96,6 +105,10 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
             R.id.action_share -> mainPresenterImpl.shareAppLink()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        recyclerViewBackgroundColor()
     }
 
     override fun onDestroy() {
@@ -116,8 +129,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
         mainContentList = DatabaseLists(this).getContentList
         val verticalLayout = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvMainContent.layoutManager = verticalLayout
-        mainAdapter = MainAdapter(
-            this, preferences, mainContentList, this, this, this, this)
+        mainAdapter = MainAdapter(this, preferences, mainContentList, this, this, this, this)
         rvMainContent.adapter = mainAdapter
     }
 
@@ -331,4 +343,28 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
         get() {
             return this.currentPosition / 1000
         }
+
+    private fun recyclerViewBackgroundColor() {
+        val settingsPresenterImpl: SettingsPresenterImpl = SettingsPresenterImpl(this)
+        val whiteMode = preferences.getBoolean("key_white_state", true)
+        val sepiaMode = preferences.getBoolean("key_sepia_state", false)
+        val nightMode = preferences.getBoolean("key_night_mode_state", false)
+
+        when (true) {
+
+            whiteMode -> settingsPresenterImpl.backgroundMode(1)
+
+            sepiaMode -> settingsPresenterImpl.backgroundMode(2)
+
+            nightMode -> settingsPresenterImpl.backgroundMode(3)
+        }
+    }
+
+    override fun colorMode(backgroundColor: Int, textArabicColor: Int, textTranslationColor: Int) {
+        rvMainContent.setBackgroundColor(backgroundColor)
+    }
+
+    override fun textArabicSize(textArabicSize: Float) {}
+
+    override fun textTranslationSize(textTranslationSize: Float) {}
 }
