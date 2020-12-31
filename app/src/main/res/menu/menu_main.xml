@@ -2,20 +2,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="jmapps.supplicationsfromquran.MainActivity">
+
+    <item
+        android:id="@+id/action_random"
+        android:icon="@drawable/ic_random"
+        android:orderInCategory="1"
+        android:title="@string/action_arbitrary"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_settings_white"
         android:orderInCategory="1"
         android:title="@string/action_settings"
         app:showAsAction="ifRoom" />
-
     <item
         android:id="@+id/action_download_audios"
         android:icon="@drawable/ic_cloud_audios"
         android:orderInCategory="2"
         android:title="@string/action_download_audios"
         app:showAsAction="never" />
-
     <item
         android:id="@+id/action_about_us"
         android:icon="@drawable/ic_about_us"

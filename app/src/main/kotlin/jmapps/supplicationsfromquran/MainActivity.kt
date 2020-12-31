@@ -34,6 +34,7 @@ import jmapps.supplicationsfromquran.presentation.ui.main.MainModel
 import jmapps.supplicationsfromquran.presentation.ui.settings.BottomSheetSettings
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(), MainContract.MainView,
     View.OnClickListener, CompoundButton.OnCheckedChangeListener, MainAdapter.PlayItem,
@@ -73,6 +74,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
             .registerOnSharedPreferenceChangeListener(this)
 
         database = DatabaseOpenHelper(this).readableDatabase
+        mainContentList = DatabaseLists(this).getContentList
 
         mainPresenterImpl = MainPresenterImpl(this, this)
         bookmarkPresenter = BookmarkPresenter(this, database!!)
@@ -97,6 +99,12 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.action_random -> {
+                val rand = Random.nextInt(mainContentList.size)
+                rvMainContent.smoothScrollToPosition(mainContentList[rand]._id - 1)
+                mainAdapter.onItemSelected(rand)
+            }
+
             R.id.action_settings -> mainPresenterImpl.getSettings()
 
             R.id.action_download_audios -> mainPresenterImpl.getDownloadAudios()
@@ -121,7 +129,6 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
     }
 
     override fun initMainContent() {
-        mainContentList = DatabaseLists(this).getContentList
         val verticalLayout = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvMainContent.layoutManager = verticalLayout
         mainAdapter = MainAdapter(this, preferences, mainContentList, this, this, this, this)

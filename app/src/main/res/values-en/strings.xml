@@ -33,4 +33,5 @@
     <string name="action_bookmark_removed">Removed from bookmark</string>
     <string name="action_bookmark_is_empty">Add favorite dua</string>
     <string name="action_error">Error:</string>
+    <string name="action_arbitrary">Free ayah</string>
 </resources>

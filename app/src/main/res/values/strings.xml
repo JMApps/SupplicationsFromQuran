@@ -45,4 +45,5 @@
     <string name="action_bookmark_is_empty">Добавьте избранные дуа</string>
     <string name="action_error">Ошибка:</string>
     <string name="action_download_audios">Скачать аудио</string>
+    <string name="action_arbitrary">Произвольный айят</string>
 </resources>

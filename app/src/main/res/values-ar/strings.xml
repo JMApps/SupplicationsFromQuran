@@ -33,4 +33,5 @@
     <string name="action_bookmark_removed">تمت إزالته من الإشارة المرجعية</string>
     <string name="action_bookmark_is_empty">أضف الدعاء المفضل</string>
     <string name="action_error">خطأ:</string>
+    <string name="action_arbitrary">آيات مجانية</string>
 </resources>

@@ -32,6 +32,7 @@ class DatabaseLists(private val context: Context?) {
             if (cursor.moveToFirst()) {
                 while (!cursor.isAfterLast) {
                     val contents = MainModel(
+                        cursor.getInt(cursor.getColumnIndex("_id")),
                         cursor.getString(cursor.getColumnIndex("ContentAyah")),
                         cursor.getString(cursor.getColumnIndex("ContentTranslation")),
                         cursor.getString(cursor.getColumnIndex("NameAudio")),
