@@ -13,12 +13,14 @@ import android.widget.CompoundButton
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment.STYLE_NORMAL
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import jmapps.supplicationsfromquran.data.database.DatabaseLists
 import jmapps.supplicationsfromquran.data.database.DatabaseOpenHelper
+import jmapps.supplicationsfromquran.databinding.ActivityMainBinding
 import jmapps.supplicationsfromquran.presentation.mvp.bookmarks.BookmarkContract
 import jmapps.supplicationsfromquran.presentation.mvp.bookmarks.BookmarkPresenter
 import jmapps.supplicationsfromquran.presentation.mvp.main.MainContract
@@ -39,6 +41,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
     MainAdapter.EventShare, BookmarkContract.ChapterView, MainAdapter.EventBookmark,
     SharedPreferences.OnSharedPreferenceChangeListener, SettingsContract.SettingsView {
 
+    private lateinit var binding: ActivityMainBinding
     private var database: SQLiteDatabase? = null
 
     private lateinit var preferences: SharedPreferences
@@ -58,30 +61,29 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
     @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setSupportActionBar(binding.toolbar)
 
         LockOrientation(this).lock()
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
         editor = preferences.edit()
+
         PreferenceManager.getDefaultSharedPreferences(this)
             .registerOnSharedPreferenceChangeListener(this)
-
-        openDatabase()
 
         mainPresenterImpl = MainPresenterImpl(this, this)
         bookmarkPresenter = BookmarkPresenter(this, database!!)
 
         initMainContent()
 
-        btnPrevious.setOnClickListener(this)
-        tbPlayPause.setOnCheckedChangeListener(this)
-        btnNext.setOnClickListener(this)
-        sbAudioProgress.setOnSeekBarChangeListener(this)
-        tbFollowing.setOnCheckedChangeListener(this)
-        tbLoop.setOnCheckedChangeListener(this)
-        btnBookmarks.setOnClickListener(this)
+        binding.btnPrevious.setOnClickListener(this)
+        binding.tbPlayPause.setOnCheckedChangeListener(this)
+        binding.btnNext.setOnClickListener(this)
+        binding.sbAudioProgress.setOnSeekBarChangeListener(this)
+        binding.tbFollowing.setOnCheckedChangeListener(this)
+        binding.tbLoop.setOnCheckedChangeListener(this)
+        binding.btnBookmarks.setOnClickListener(this)
 
         recyclerViewBackgroundColor()
     }
@@ -93,7 +95,6 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-
             R.id.action_settings -> mainPresenterImpl.getSettings()
 
             R.id.action_download_audios -> mainPresenterImpl.getDownloadAudios()
@@ -113,19 +114,12 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
 
     override fun onDestroy() {
         super.onDestroy()
-        closeDatabase()
+        database?.close()
         clear()
     }
 
-    override fun openDatabase() {
-        database = DatabaseOpenHelper(this).readableDatabase
-    }
-
-    override fun closeDatabase() {
-        database?.close()
-    }
-
     override fun initMainContent() {
+        database = DatabaseOpenHelper(this).readableDatabase
         mainContentList = DatabaseLists(this).getContentList
         val verticalLayout = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvMainContent.layoutManager = verticalLayout
@@ -164,19 +158,16 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
 
     override fun getSettings() {
         val settings = BottomSheetSettings()
-        settings.setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.BottomSheetStyleFull)
         settings.show(supportFragmentManager, "settings")
     }
 
     override fun getAboutUs() {
         val aboutUs = BottomSheetAboutUs()
-        aboutUs.setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.BottomSheetStyleFull)
         aboutUs.show(supportFragmentManager, "about_us")
     }
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
         when (buttonView?.id) {
-
             R.id.tbPlayPause -> {
                 if (isChecked) {
                     if (player == null) {
@@ -192,7 +183,6 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
                     player?.pause()
                 }
             }
-
             R.id.tbLoop -> {
                 if (isChecked) {
                     if (tbFollowing.isChecked) {
@@ -204,7 +194,6 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
                 }
                 player?.isLooping = isChecked
             }
-
             R.id.tbFollowing -> {
                 if (isChecked) {
                     if (tbLoop.isChecked) {
@@ -220,7 +209,6 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
 
     override fun onClick(v: View?) {
         when (v?.id) {
-
             R.id.btnPrevious -> {
                 if (trackIndex > 0) {
                     trackIndex--
@@ -230,7 +218,6 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
                     rvMainContent.smoothScrollToPosition(trackIndex)
                 }
             }
-
             R.id.btnNext -> {
                 if (trackIndex < mainContentList.size - 1) {
                     trackIndex++
@@ -240,7 +227,6 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
                     rvMainContent.smoothScrollToPosition(trackIndex)
                 }
             }
-
             R.id.btnBookmarks -> {
                 val bookmarkBottomSheet = BookmarkBottomSheet()
                 bookmarkBottomSheet.setStyle(STYLE_NORMAL, R.style.BottomSheetStyleFull)
@@ -266,10 +252,8 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
 
     private fun initPlayer(index: Int) {
         clear()
-        val resId: Int? = resources?.getIdentifier(
-            mainContentList[index].strNameAudio,
-            "raw", "jmapps.supplicationsfromquran"
-        )
+        val resId: Int? = resources?.getIdentifier(mainContentList[index].strNameAudio,
+            "raw", "jmapps.supplicationsfromquran")
         player = MediaPlayer.create(this, resId!!)
         mainAdapter.onItemSelected(index)
         currentAudioProgress()
@@ -343,7 +327,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
         }
 
     private fun recyclerViewBackgroundColor() {
-        val settingsPresenterImpl: SettingsPresenterImpl = SettingsPresenterImpl(this)
+        val settingsPresenterImpl = SettingsPresenterImpl(this)
         val whiteMode = preferences.getBoolean("key_white_state", true)
         val sepiaMode = preferences.getBoolean("key_sepia_state", false)
         val nightMode = preferences.getBoolean("key_night_mode_state", false)

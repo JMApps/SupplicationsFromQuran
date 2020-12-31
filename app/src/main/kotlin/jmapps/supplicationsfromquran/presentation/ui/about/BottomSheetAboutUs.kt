@@ -9,10 +9,12 @@ import jmapps.supplicationsfromquran.R
 
 class BottomSheetAboutUs : BottomSheetDialogFragment() {
 
+    override fun getTheme() = R.style.BottomSheetStyleFull
+
     private lateinit var rootAboutUs: View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+        savedInstanceState: Bundle?): View {
         rootAboutUs = inflater.inflate(R.layout.bottomsheet_about_us, container, false)
 
         return rootAboutUs

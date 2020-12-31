@@ -18,6 +18,8 @@ import kotlinx.android.synthetic.main.bottomsheet_settings.view.*
 class BottomSheetSettings : BottomSheetDialogFragment(), RadioGroup.OnCheckedChangeListener,
     SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
 
+    override fun getTheme() = R.style.BottomSheetStyleFull
+
     private lateinit var rootSettings: View
 
     private lateinit var preferences: SharedPreferences
@@ -65,7 +67,6 @@ class BottomSheetSettings : BottomSheetDialogFragment(), RadioGroup.OnCheckedCha
 
     override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
         when (group?.id) {
-
             R.id.rgModeBackground -> {
                 editor.putBoolean("key_white_state", rbWhiteMode.isChecked).apply()
                 editor.putBoolean("key_sepia_state", rbSepiaMode.isChecked).apply()
@@ -77,7 +78,6 @@ class BottomSheetSettings : BottomSheetDialogFragment(), RadioGroup.OnCheckedCha
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
         when (seekBar?.id) {
             R.id.sbTextSizeAyahs -> editor.putInt("key_text_arabic_size_progress", progress).apply()
-
             R.id.sbTextSizeTranslations -> editor.putInt("key_text_translation_size_progress", progress).apply()
         }
     }
