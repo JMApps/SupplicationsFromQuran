@@ -59,15 +59,21 @@ class BookmarkAdapter(
         if (currentIndex == position) {
             if (language == "ar") {
                 holder.btnPlayPause.setBackgroundResource(R.drawable.ic_play_accent_ar_rotate)
+                holder.tvBookmarkContentArabic.setTextColor(Color.argb(255, 230, 74, 25))
             } else {
                 holder.btnPlayPause.setBackgroundResource(R.drawable.ic_play_accent)
                 holder.tvBookmarkContentArabic.setTextColor(Color.argb(255, 230, 74, 25))
             }
         } else {
             if (language == "ar") {
-                holder.btnPlayPause.setBackgroundResource(R.drawable.ic_pause_ar_rotate)
+                holder.btnPlayPause.setBackgroundResource(R.drawable.ic_play_grey_ar_rotate)
+                if (preferences.getBoolean("key_night_mode_state", false)) {
+                    holder.tvBookmarkContentArabic.setTextColor(Color.argb(255, 184, 184, 184))
+                } else {
+                    holder.tvBookmarkContentArabic.setTextColor(Color.argb(255, 87, 87, 87))
+                }
             } else {
-                holder.btnPlayPause.setBackgroundResource(R.drawable.ic_pause)
+                holder.btnPlayPause.setBackgroundResource(R.drawable.ic_play_grey)
                 if (preferences.getBoolean("key_night_mode_state", false)) {
                     holder.tvBookmarkContentArabic.setTextColor(Color.argb(255, 184, 184, 184))
                 } else {

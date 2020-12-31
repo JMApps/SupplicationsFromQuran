@@ -94,24 +94,21 @@ class BookmarkViewHolder(itemView: View): RecyclerView.ViewHolder(itemView),
 
             in 0..599 -> {
                 val textArabicSize = preferences.getInt("key_text_arabic_size_progress", 2)
-                val textTranslationSize =
-                    preferences.getInt("key_text_translation_size_progress", 2)
+                val textTranslationSize = preferences.getInt("key_text_translation_size_progress", 2)
                 settingsPresenterImpl.textArabicSizeMode(textArabicSize)
                 settingsPresenterImpl.textTranslationSizeMode(textTranslationSize)
             }
 
-            600 -> {
+            in 600..719 -> {
                 val textArabicSize = preferences.getInt("key_text_arabic_size_progress", 3)
-                val textTranslationSize =
-                    preferences.getInt("key_text_translation_size_progress", 3)
+                val textTranslationSize = preferences.getInt("key_text_translation_size_progress", 3)
                 settingsPresenterImpl.textArabicSizeMode(textArabicSize)
                 settingsPresenterImpl.textTranslationSizeMode(textTranslationSize)
             }
 
-            720 -> {
+            in 720..1080 -> {
                 val textArabicSize = preferences.getInt("key_text_arabic_size_progress", 4)
-                val textTranslationSize =
-                    preferences.getInt("key_text_translation_size_progress", 4)
+                val textTranslationSize = preferences.getInt("key_text_translation_size_progress", 4)
                 settingsPresenterImpl.textArabicSizeMode(textArabicSize)
                 settingsPresenterImpl.textTranslationSizeMode(textTranslationSize)
             }

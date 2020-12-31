@@ -72,6 +72,8 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
         PreferenceManager.getDefaultSharedPreferences(this)
             .registerOnSharedPreferenceChangeListener(this)
 
+        database = DatabaseOpenHelper(this).readableDatabase
+
         mainPresenterImpl = MainPresenterImpl(this, this)
         bookmarkPresenter = BookmarkPresenter(this, database!!)
 
@@ -119,7 +121,6 @@ class MainActivity : AppCompatActivity(), MainContract.MainView,
     }
 
     override fun initMainContent() {
-        database = DatabaseOpenHelper(this).readableDatabase
         mainContentList = DatabaseLists(this).getContentList
         val verticalLayout = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvMainContent.layoutManager = verticalLayout

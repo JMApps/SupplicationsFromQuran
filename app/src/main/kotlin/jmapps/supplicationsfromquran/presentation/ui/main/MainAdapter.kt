@@ -18,8 +18,7 @@ class MainAdapter(
     private val playItem: PlayItem,
     private val eventBookmark: EventBookmark,
     private val eventCopy: EventCopy,
-    private val eventShare: EventShare
-) :
+    private val eventShare: EventShare) :
     RecyclerView.Adapter<MainViewHolder>() {
 
     private val inflater = LayoutInflater.from(context)
