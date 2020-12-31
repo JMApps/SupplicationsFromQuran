@@ -21,14 +21,6 @@ class MainPresenterImpl(
     private var myClipboard: ClipboardManager? = null
     private var myClip: ClipData? = null
 
-    override fun openDatabase() {
-        mainView?.openDatabase()
-    }
-
-    override fun closeDatabase() {
-        mainView?.closeDatabase()
-    }
-
     override fun initMainContent() {
         mainView?.initMainContent()
     }

@@ -7,7 +7,6 @@ class SettingsPresenterImpl(private val settingsView: SettingsContract.SettingsV
 
     override fun backgroundMode(numberMode: Int) {
         when (numberMode) {
-
             1 -> {
                 settingsView?.colorMode(
                     Color.argb(255, 244, 244, 244),
@@ -33,7 +32,6 @@ class SettingsPresenterImpl(private val settingsView: SettingsContract.SettingsV
 
     override fun textArabicSizeMode(numberArabicMode: Int) {
         when (numberArabicMode) {
-
             0 -> settingsView?.textArabicSize(16f)
 
             1 -> settingsView?.textArabicSize(18f)
@@ -50,7 +48,6 @@ class SettingsPresenterImpl(private val settingsView: SettingsContract.SettingsV
 
     override fun textTranslationSizeMode(numberTranslationMode: Int) {
         when (numberTranslationMode) {
-
             0 -> settingsView?.textTranslationSize(14f)
 
             1 -> settingsView?.textTranslationSize(16f)
