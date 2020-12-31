@@ -35,33 +35,29 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:backgroundTint="@color/colorPrimary"
-            app:fabAlignmentMode="center"
             app:hideOnScroll="true"
             app:layout_anchorGravity="center"
             app:layout_scrollFlags="scroll|enterAlways">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12dp">
+                android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnPrevious"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/main_app_icon_size"
+                    android:layout_height="@dimen/main_app_icon_size"
                     android:background="@drawable/state_previous"
-                    android:padding="4dp"
                     app:layout_constraintBottom_toBottomOf="@+id/sbAudioProgress"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/sbAudioProgress" />
 
                 <androidx.appcompat.widget.AppCompatToggleButton
                     android:id="@+id/tbPlayPause"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_width="@dimen/main_app_icon_size_big"
+                    android:layout_height="@dimen/main_app_icon_size_big"
+                    android:layout_marginStart="@dimen/main_margin_mini"
                     android:background="@drawable/state_play"
-                    android:padding="4dp"
                     android:text=""
                     android:textOff=""
                     android:textOn=""
@@ -71,9 +67,9 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnNext"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_width="@dimen/main_app_icon_size"
+                    android:layout_height="@dimen/main_app_icon_size"
+                    android:layout_marginStart="@dimen/main_margin_mini"
                     android:background="@drawable/state_next"
                     android:padding="4dp"
                     app:layout_constraintBottom_toBottomOf="@+id/sbAudioProgress"
@@ -84,10 +80,10 @@
                     android:id="@+id/sbAudioProgress"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="@dimen/main_margin_mini"
+                    android:layout_marginTop="@dimen/main_margin_mini"
+                    android:layout_marginEnd="@dimen/main_margin_mini"
+                    android:layout_marginBottom="@dimen/main_margin_mini"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tbLoop"
                     app:layout_constraintStart_toEndOf="@+id/btnNext"
@@ -95,11 +91,10 @@
 
                 <androidx.appcompat.widget.AppCompatToggleButton
                     android:id="@+id/tbLoop"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_width="@dimen/main_app_icon_size"
+                    android:layout_height="@dimen/main_app_icon_size"
+                    android:layout_marginEnd="@dimen/main_margin_mini"
                     android:background="@drawable/state_loop"
-                    android:padding="4dp"
                     android:text=""
                     android:textOff=""
                     android:textOn=""
@@ -109,11 +104,10 @@
 
                 <androidx.appcompat.widget.AppCompatToggleButton
                     android:id="@+id/tbFollowing"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_width="@dimen/main_app_icon_size"
+                    android:layout_height="@dimen/main_app_icon_size"
+                    android:layout_marginEnd="@dimen/main_margin_mini"
                     android:background="@drawable/state_following"
-                    android:padding="4dp"
                     android:text=""
                     android:textOff=""
                     android:textOn=""
@@ -123,8 +117,9 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnBookmarks"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/main_app_icon_size"
+                    android:layout_height="@dimen/main_app_icon_size"
+                    android:layout_marginEnd="@dimen/main_margin_mini"
                     android:background="@drawable/state_bookmark_button"
                     app:layout_constraintBottom_toBottomOf="@+id/sbAudioProgress"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -12,11 +12,11 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:drawableStart="@drawable/ic_bookmark_white"
-        android:drawablePadding="16dp"
-        android:padding="16dp"
+        android:drawablePadding="@dimen/main_padding"
+        android:padding="@dimen/main_padding"
         android:text="@string/action_bookmark"
         android:textColor="@color/White"
-        android:textSize="20sp"
+        android:textSize="@dimen/main_app_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,19 +30,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBookmarkDescriptions"
-        app:layout_constraintVertical_bias="0.32999998" />
+        app:layout_constraintTop_toBottomOf="@+id/tvBookmarkDescriptions" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvAddBookmarkDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/main_margin"
         android:gravity="center"
-        android:padding="16dp"
+        android:padding="@dimen/main_padding"
         android:text="@string/action_bookmark_is_empty"
-        android:textSize="20sp"
+        android:textSize="@dimen/main_app_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivBookmarkDescription" />

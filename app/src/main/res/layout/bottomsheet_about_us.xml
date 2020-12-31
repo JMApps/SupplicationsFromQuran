@@ -13,20 +13,20 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:drawableStart="@drawable/ic_about_us"
-        android:drawablePadding="8dp"
+        android:drawablePadding="@dimen/main_padding_mini"
         android:padding="16dp"
         android:text="@string/action_about_us"
         android:textColor="@color/White"
-        android:textSize="20sp" />
+        android:textSize="@dimen/main_app_text_size" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="@dimen/main_margin_big"
         android:autoLink="all"
         android:background="@color/White"
-        android:padding="16dp"
+        android:padding="@dimen/main_padding"
         android:text="@string/about_us_text"
-        android:textSize="20sp" />
+        android:textSize="@dimen/main_app_text_size" />
 </androidx.appcompat.widget.LinearLayoutCompat>

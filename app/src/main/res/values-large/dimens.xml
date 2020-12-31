@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_app_text_size">22sp</dimen>
+    <dimen name="main_app_icon_size">30dp</dimen>
+    <dimen name="main_app_icon_size_big">35dp</dimen>
+
+    <dimen name="main_padding_big">27dp</dimen>
+    <dimen name="main_padding">18dp</dimen>
+    <dimen name="main_padding_mini">10dp</dimen>
+
+    <dimen name="main_margin_big">27dp</dimen>
+    <dimen name="main_margin">18dp</dimen>
+    <dimen name="main_margin_mini">10dp</dimen>
+
+    <dimen name="main_item_card_borders">23dp</dimen>
+</resources>

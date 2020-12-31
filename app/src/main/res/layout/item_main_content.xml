@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    app:cardCornerRadius="25dp"
+    app:cardCornerRadius="@dimen/main_item_card_borders"
     app:cardElevation="3dp">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -19,21 +19,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/quran_font"
-            android:padding="16dp" />
+            android:padding="@dimen/main_padding" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvContentTranslation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="16dp" />
+            android:paddingLeft="@dimen/main_padding"
+            android:paddingRight="@dimen/main_padding"
+            android:paddingBottom="@dimen/main_padding" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="@dimen/main_margin"
+            android:layout_marginRight="@dimen/main_margin"
             android:background="@color/Gray" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -45,8 +45,8 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnPlayPause"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/main_app_icon_size"
+                android:layout_height="@dimen/main_app_icon_size"
                 android:clickable="false" />
 
             <View
@@ -57,9 +57,9 @@
 
             <androidx.appcompat.widget.AppCompatToggleButton
                 android:id="@+id/tbBookmark"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginEnd="8dp"
+                android:layout_width="@dimen/main_app_icon_size"
+                android:layout_height="@dimen/main_app_icon_size"
+                android:layout_marginEnd="@dimen/main_margin_mini"
                 android:background="@drawable/state_bookmark"
                 android:text=""
                 android:textOff=""
@@ -67,16 +67,16 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnCopy"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginEnd="8dp"
+                android:layout_width="@dimen/main_app_icon_size"
+                android:layout_height="@dimen/main_app_icon_size"
+                android:layout_marginEnd="@dimen/main_margin_mini"
                 android:background="@drawable/state_copy" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnShare"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginEnd="8dp"
+                android:layout_width="@dimen/main_app_icon_size"
+                android:layout_height="@dimen/main_app_icon_size"
+                android:layout_marginEnd="@dimen/main_margin_mini"
                 android:background="@drawable/state_share" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -84,12 +84,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/circle_content_name"
-                android:paddingLeft="8dp"
+                android:paddingLeft="@dimen/main_padding_mini"
                 android:paddingTop="5dp"
-                android:paddingRight="8dp"
+                android:paddingRight="@dimen/main_padding_mini"
                 android:paddingBottom="5dp"
                 android:textColor="@color/White"
-                android:textSize="16sp" />
+                android:textSize="@dimen/main_app_text_size" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.cardview.widget.CardView>
